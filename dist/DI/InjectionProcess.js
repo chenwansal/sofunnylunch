@@ -5,6 +5,7 @@ const jackwebutil_1 = require("jackwebutil");
 const UserSystem_1 = require("../ServiceManager/HomeService/UserAggregate/UserSystem");
 const HomeSerivce_1 = require("../ServiceManager/HomeService/HomeSerivce");
 const ServiceManager_1 = require("../ServiceManager/ServiceManager");
+const GeneralService_1 = require("../ServiceManager/GeneralService/GeneralService");
 class InjectionProcess {
     constructor() { }
     Run(container) {
@@ -13,10 +14,11 @@ class InjectionProcess {
     InjectServiceManager(container) {
         let serviceManager = container.Get(ServiceManager_1.ServiceManager.name);
         let httpServer = container.Get(jackwebutil_1.HttpServer.name);
+        let generalService = container.Get(GeneralService_1.GeneralService.name);
         let homeService = container.Get(HomeSerivce_1.HomeService.name);
         let userSystem = container.Get(UserSystem_1.UserSystem.name);
         serviceManager.Ctor(httpServer, homeService);
-        homeService.Ctor(httpServer, userSystem);
+        homeService.Ctor(httpServer, userSystem, generalService);
     }
 }
 exports.InjectionProcess = InjectionProcess;

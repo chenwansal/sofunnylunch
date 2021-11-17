@@ -1,4 +1,5 @@
 import { HttpServer } from "jackwebutil";
+import { GeneralService } from "../ServiceManager/GeneralService/GeneralService";
 import { HomeService } from "../ServiceManager/HomeService/HomeSerivce";
 import { UserSystem } from "../ServiceManager/HomeService/UserAggregate/UserSystem";
 import { ServiceManager } from "../ServiceManager/ServiceManager";
@@ -24,6 +25,9 @@ export class InstantiationProcess {
 
         let serviceManager: ServiceManager = new ServiceManager();
         container.Set(ServiceManager.name, serviceManager);
+
+        let generalService: GeneralService = new GeneralService();
+        container.Set(GeneralService.name, generalService);
 
         let homeService: HomeService = new HomeService();
         container.Set(HomeService.name, homeService);

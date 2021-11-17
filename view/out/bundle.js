@@ -333,7 +333,7 @@ eval("\n\nvar bind = __webpack_require__(/*! ./helpers/bind */ \"../node_modules
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nconst axios_1 = __webpack_require__(/*! axios */ \"../node_modules/axios/index.js\");\r\naxios_1.default.post(\"/s\", { user: \"user\" });\r\n\n\n//# sourceURL=webpack:///./js/App.js?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nconst axios_1 = __webpack_require__(/*! axios */ \"../node_modules/axios/index.js\");\r\naxios_1.default.post(\"/GetDate\").then(res => {\r\n    let dateStr = res.data.date;\r\n    let title = document.getElementById(\"MainTitle\");\r\n    let h1 = title === null || title === void 0 ? void 0 : title.firstElementChild;\r\n    h1.innerText = dateStr + \"午餐菜单\";\r\n    console.log(\"菜单\" + dateStr);\r\n});\r\n\n\n//# sourceURL=webpack:///./js/App.js?");
 
 /***/ })
 
