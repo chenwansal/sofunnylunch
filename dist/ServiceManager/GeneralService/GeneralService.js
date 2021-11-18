@@ -6,7 +6,10 @@ class GeneralService {
     constructor() {
     }
     GetDate() {
-        return DateHelper_1.DataHelper.GetYYMMDD();
+        return DateHelper_1.DataHelper.GetYYYYMMDD();
+    }
+    GetMenu() {
+        return null;
     }
 }
 exports.GeneralService = GeneralService;

@@ -2,7 +2,7 @@ export class AdministratorEntity {
 
     constructor() {}
 
-    Ctor() {
+    Inject() {
         
     }
 }

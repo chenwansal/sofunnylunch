@@ -2,7 +2,7 @@ export class UserSystem {
 
     constructor() {}
 
-    Ctor() {
+    Inject() {
         
     }
 }

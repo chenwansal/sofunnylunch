@@ -3,18 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HomeService = void 0;
 class HomeService {
     constructor() { }
-    Ctor(http, userSystem, generalService) {
+    Inject(http, userSystem, menuController) {
         this.http = http;
         this.userSystem = userSystem;
-        this.generalService = generalService;
+        this.menuController = menuController;
     }
     Init() {
         this.http.GetListen("/", (req, res) => {
             res.render("/index.html");
         });
-        this.http.PostListen("/GetDate", (req, res) => {
-            res.json({ date: this.generalService.GetDate() });
-        });
+        this.menuController.Init();
     }
 }
 exports.HomeService = HomeService;

@@ -2,7 +2,7 @@ export class AdminService {
 
     constructor() {}
 
-    Ctor() {
+    Inject() {
 
     }
     

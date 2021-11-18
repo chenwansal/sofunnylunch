@@ -4,7 +4,7 @@ module.exports = {
         path: __dirname + "/out",
         filename: "bundle.js"
     },
-    mode: "development", // development / production
+    mode: "production", // development / production
     externals: {
     }
 }

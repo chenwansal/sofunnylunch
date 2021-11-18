@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserEntity = void 0;
 class UserEntity {
     constructor() { }
-    Ctor() {
+    Inject() {
     }
 }
 exports.UserEntity = UserEntity;

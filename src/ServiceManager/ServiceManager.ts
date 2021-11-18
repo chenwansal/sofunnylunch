@@ -7,19 +7,15 @@ export class ServiceManager implements IContainerInstance {
     http: HttpServer;
     homeService: HomeService;
 
-    constructor() {
-        this.http = null;
-    }
+    constructor() {}
 
-    Ctor(http: HttpServer, homeService: HomeService) {
+    Inject(http: HttpServer, homeService: HomeService) {
         this.http = http;
         this.homeService = homeService;
     }
 
     Init() {
-
         this.homeService.Init();
-
     }
 
     StartService() {
