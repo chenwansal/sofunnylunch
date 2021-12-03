@@ -5,7 +5,9 @@ export class DateHelper {
         let y = date.getFullYear();
         let m = date.getMonth() + 1;
         let d = date.getDate();
-        return "" + y + m + d;
+        let monthStr = m < 10 ? "0" + m : m;
+        let dayStr = d < 10 ? "0" + d : d;
+        return "" + y + monthStr + dayStr;
     }
 
 }

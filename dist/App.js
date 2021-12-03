@@ -1,43 +1,41 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const MenuTable_1 = require("./DB/Table/MenuTable");
-const Container_1 = require("./DI/Container");
-const InitializationProcess_1 = require("./DI/InitializationProcess");
-const InjectionProcess_1 = require("./DI/InjectionProcess");
-const InstantiationProcess_1 = require("./DI/InstantiationProcess");
-const ServiceManager_1 = require("./ServiceManager/ServiceManager");
-const DateHelper_1 = require("./Util/DateHelper");
-const PathHelper_1 = require("./Util/PathHelper");
+const jackwebutil_1 = require("jackwebutil");
+const FoodDao_1 = require("./DB/Dao/Food/FoodDao");
+const MenuDao_1 = require("./DB/Dao/Menu/MenuDao");
+const HomeMenuCao_1 = require("./Service/Home/Repository/HomeMenuCao");
+const HomeLoadMenuService_1 = require("./Service/Home/Service/HomeLoadMenuService");
+const HomeService_1 = require("./Service/Home/Service/HomeService");
 class App {
     static main() {
-        PathHelper_1.PathHelper.Init();
-        let container = new Container_1.Container();
-        // ---- DI ----
-        let instantiation = new InstantiationProcess_1.InstantiationProcess();
-        instantiation.Run(container);
-        let injection = new InjectionProcess_1.InjectionProcess();
-        injection.Run(container);
-        // TODO 菜品
-        let foodDao = container.Get("IFoodDao");
-        let foodArr = [
-            { id: 1, name: "红烧鱼", supplier: "老A" },
-            { id: 2, name: "黄花菜", supplier: "厨禾秀" },
-            { id: 3, name: "炒蛋", supplier: "小C" },
-        ];
-        foodDao.AddFoods(foodArr);
-        // TODO 菜单
-        let menuDao = container.Get("IMenuDao");
-        let menu = new MenuTable_1.MenuTable();
-        menu.id = 1;
-        menu.yyyymmdd = DateHelper_1.DateHelper.GetYYYYMMDD();
-        menu.foodIdArr = [1, 2, 3];
-        menuDao.AddMenu(menu);
-        // ---- INIT ----
-        let initilization = new InitializationProcess_1.InitializationProcess();
-        initilization.Run(container);
-        // ---- RUN ----
-        let serviceManager = container.Get(ServiceManager_1.ServiceManager.name);
-        serviceManager.StartService();
+        // ==== CTOR ====
+        // CTOR HTTP
+        let http = new jackwebutil_1.HttpServer();
+        // CTOR DAO
+        let menuDao = new MenuDao_1.MenuDao();
+        let foodDao = new FoodDao_1.FoodDao();
+        // CTOR CAO
+        let homeMenuCao = new HomeMenuCao_1.HomeMenuCao();
+        // CTOR HOME SERVICE
+        let homeService = new HomeService_1.HomeService();
+        let homeLoadMenuService = new HomeLoadMenuService_1.HomeLoadMenuService();
+        // ==== INJECT ====
+        // INJECT HOME SERVICE
+        homeService.Inject(http);
+        homeLoadMenuService.Inject(foodDao, menuDao, homeMenuCao, http);
+        // ==== INIT ====
+        // INIT HTTP
+        const viewPath = "../view/";
+        http.InitHttpView(9966, __dirname, viewPath, viewPath);
+        // INIT DAO
+        menuDao.Init();
+        foodDao.Init();
+        // INIT HOME SERVICE
+        homeService.Init();
+        homeLoadMenuService.Init();
+        // ==== RUN ====
+        http.Start();
     }
 }
 App.main();
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQXBwLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vc3JjL0FwcC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUF5QztBQUN6QyxtREFBZ0Q7QUFDaEQsbURBQWdEO0FBQ2hELHVFQUFvRTtBQUNwRSxvRkFBaUY7QUFDakYsb0VBQWlFO0FBRWpFLE1BQU0sR0FBRztJQUVMLE1BQU0sQ0FBQyxJQUFJO1FBRVAsaUJBQWlCO1FBQ2pCLFlBQVk7UUFDWixJQUFJLElBQUksR0FBZSxJQUFJLHdCQUFVLEVBQUUsQ0FBQztRQUV4QyxXQUFXO1FBQ1gsSUFBSSxPQUFPLEdBQVksSUFBSSxpQkFBTyxFQUFFLENBQUM7UUFDckMsSUFBSSxPQUFPLEdBQVksSUFBSSxpQkFBTyxFQUFFLENBQUM7UUFFckMsV0FBVztRQUNYLElBQUksV0FBVyxHQUFnQixJQUFJLHlCQUFXLEVBQUUsQ0FBQztRQUVqRCxvQkFBb0I7UUFDcEIsSUFBSSxXQUFXLEdBQWdCLElBQUkseUJBQVcsRUFBRSxDQUFDO1FBQ2pELElBQUksbUJBQW1CLEdBQXdCLElBQUkseUNBQW1CLEVBQUUsQ0FBQztRQUV6RSxtQkFBbUI7UUFDbkIsc0JBQXNCO1FBQ3RCLFdBQVcsQ0FBQyxNQUFNLENBQUMsSUFBSSxDQUFDLENBQUM7UUFDekIsbUJBQW1CLENBQUMsTUFBTSxDQUFDLE9BQU8sRUFBRSxPQUFPLEVBQUUsV0FBVyxFQUFFLElBQUksQ0FBQyxDQUFDO1FBRWhFLGlCQUFpQjtRQUNqQixZQUFZO1FBQ1osTUFBTSxRQUFRLEdBQVcsVUFBVSxDQUFDO1FBQ3BDLElBQUksQ0FBQyxZQUFZLENBQUMsSUFBSSxFQUFFLFNBQVMsRUFBRSxRQUFRLEVBQUUsUUFBUSxDQUFDLENBQUM7UUFFdkQsV0FBVztRQUNYLE9BQU8sQ0FBQyxJQUFJLEVBQUUsQ0FBQztRQUNmLE9BQU8sQ0FBQyxJQUFJLEVBQUUsQ0FBQztRQUVmLG9CQUFvQjtRQUNwQixXQUFXLENBQUMsSUFBSSxFQUFFLENBQUM7UUFDbkIsbUJBQW1CLENBQUMsSUFBSSxFQUFFLENBQUM7UUFFM0IsZ0JBQWdCO1FBQ2hCLElBQUksQ0FBQyxLQUFLLEVBQUUsQ0FBQztJQUVqQixDQUFDO0NBRUo7QUFFRCxHQUFHLENBQUMsSUFBSSxFQUFFLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBIdHRwU2VydmVyIH0gZnJvbSBcImphY2t3ZWJ1dGlsXCI7XHJcbmltcG9ydCB7IEZvb2REYW8gfSBmcm9tIFwiLi9EQi9EYW8vRm9vZC9Gb29kRGFvXCI7XHJcbmltcG9ydCB7IE1lbnVEYW8gfSBmcm9tIFwiLi9EQi9EYW8vTWVudS9NZW51RGFvXCI7XHJcbmltcG9ydCB7IEhvbWVNZW51Q2FvIH0gZnJvbSBcIi4vU2VydmljZS9Ib21lL1JlcG9zaXRvcnkvSG9tZU1lbnVDYW9cIjtcclxuaW1wb3J0IHsgSG9tZUxvYWRNZW51U2VydmljZSB9IGZyb20gXCIuL1NlcnZpY2UvSG9tZS9TZXJ2aWNlL0hvbWVMb2FkTWVudVNlcnZpY2VcIjtcclxuaW1wb3J0IHsgSG9tZVNlcnZpY2UgfSBmcm9tIFwiLi9TZXJ2aWNlL0hvbWUvU2VydmljZS9Ib21lU2VydmljZVwiO1xyXG5cclxuY2xhc3MgQXBwIHtcclxuXHJcbiAgICBzdGF0aWMgbWFpbigpIHtcclxuXHJcbiAgICAgICAgLy8gPT09PSBDVE9SID09PT1cclxuICAgICAgICAvLyBDVE9SIEhUVFBcclxuICAgICAgICBsZXQgaHR0cDogSHR0cFNlcnZlciA9IG5ldyBIdHRwU2VydmVyKCk7XHJcblxyXG4gICAgICAgIC8vIENUT1IgREFPXHJcbiAgICAgICAgbGV0IG1lbnVEYW86IE1lbnVEYW8gPSBuZXcgTWVudURhbygpO1xyXG4gICAgICAgIGxldCBmb29kRGFvOiBGb29kRGFvID0gbmV3IEZvb2REYW8oKTtcclxuXHJcbiAgICAgICAgLy8gQ1RPUiBDQU9cclxuICAgICAgICBsZXQgaG9tZU1lbnVDYW86IEhvbWVNZW51Q2FvID0gbmV3IEhvbWVNZW51Q2FvKCk7XHJcblxyXG4gICAgICAgIC8vIENUT1IgSE9NRSBTRVJWSUNFXHJcbiAgICAgICAgbGV0IGhvbWVTZXJ2aWNlOiBIb21lU2VydmljZSA9IG5ldyBIb21lU2VydmljZSgpO1xyXG4gICAgICAgIGxldCBob21lTG9hZE1lbnVTZXJ2aWNlOiBIb21lTG9hZE1lbnVTZXJ2aWNlID0gbmV3IEhvbWVMb2FkTWVudVNlcnZpY2UoKTtcclxuXHJcbiAgICAgICAgLy8gPT09PSBJTkpFQ1QgPT09PVxyXG4gICAgICAgIC8vIElOSkVDVCBIT01FIFNFUlZJQ0VcclxuICAgICAgICBob21lU2VydmljZS5JbmplY3QoaHR0cCk7XHJcbiAgICAgICAgaG9tZUxvYWRNZW51U2VydmljZS5JbmplY3QoZm9vZERhbywgbWVudURhbywgaG9tZU1lbnVDYW8sIGh0dHApO1xyXG5cclxuICAgICAgICAvLyA9PT09IElOSVQgPT09PVxyXG4gICAgICAgIC8vIElOSVQgSFRUUFxyXG4gICAgICAgIGNvbnN0IHZpZXdQYXRoOiBzdHJpbmcgPSBcIi4uL3ZpZXcvXCI7XHJcbiAgICAgICAgaHR0cC5Jbml0SHR0cFZpZXcoOTk2NiwgX19kaXJuYW1lLCB2aWV3UGF0aCwgdmlld1BhdGgpO1xyXG5cclxuICAgICAgICAvLyBJTklUIERBT1xyXG4gICAgICAgIG1lbnVEYW8uSW5pdCgpO1xyXG4gICAgICAgIGZvb2REYW8uSW5pdCgpO1xyXG5cclxuICAgICAgICAvLyBJTklUIEhPTUUgU0VSVklDRVxyXG4gICAgICAgIGhvbWVTZXJ2aWNlLkluaXQoKTtcclxuICAgICAgICBob21lTG9hZE1lbnVTZXJ2aWNlLkluaXQoKTtcclxuXHJcbiAgICAgICAgLy8gPT09PSBSVU4gPT09PVxyXG4gICAgICAgIGh0dHAuU3RhcnQoKTtcclxuICAgIFxyXG4gICAgfVxyXG5cclxufVxyXG5cclxuQXBwLm1haW4oKTsiXX0=

@@ -1,54 +1,49 @@
-import { IFoodDao } from "./DB/Dao/Food/IFoodDao";
-import { IMenuDao } from "./DB/Dao/Menu/IMenuDao";
-import { FoodTable } from "./DB/Table/FoodTable";
-import { MenuTable } from "./DB/Table/MenuTable";
-import { Container } from "./DI/Container";
-import { InitializationProcess } from "./DI/InitializationProcess";
-import { InjectionProcess } from "./DI/InjectionProcess";
-import { InstantiationProcess } from "./DI/InstantiationProcess";
-import { ServiceManager } from "./ServiceManager/ServiceManager";
-import { DateHelper } from "./Util/DateHelper";
-import { PathHelper } from "./Util/PathHelper";
+import { HttpServer } from "jackwebutil";
+import { FoodDao } from "./DB/Dao/Food/FoodDao";
+import { MenuDao } from "./DB/Dao/Menu/MenuDao";
+import { HomeMenuCao } from "./Service/Home/Repository/HomeMenuCao";
+import { HomeLoadMenuService } from "./Service/Home/Service/HomeLoadMenuService";
+import { HomeService } from "./Service/Home/Service/HomeService";
 
 class App {
 
     static main() {
 
-        PathHelper.Init();
+        // ==== CTOR ====
+        // CTOR HTTP
+        let http: HttpServer = new HttpServer();
 
-        let container: Container = new Container();
+        // CTOR DAO
+        let menuDao: MenuDao = new MenuDao();
+        let foodDao: FoodDao = new FoodDao();
 
-        // ---- DI ----
-        let instantiation: InstantiationProcess = new InstantiationProcess();
-        instantiation.Run(container);
-    
-        let injection: InjectionProcess = new InjectionProcess();
-        injection.Run(container);
+        // CTOR CAO
+        let homeMenuCao: HomeMenuCao = new HomeMenuCao();
 
-        // TODO 菜品
-        let foodDao: IFoodDao = container.Get("IFoodDao");
-        let foodArr: FoodTable[] = [
-            {id: 1, name: "红烧鱼", supplier: "老A"},
-            {id: 2, name: "黄花菜", supplier: "厨禾秀"},
-            {id: 3, name: "炒蛋", supplier: "小C"},
-        ];
-        foodDao.AddFoods(foodArr);
+        // CTOR HOME SERVICE
+        let homeService: HomeService = new HomeService();
+        let homeLoadMenuService: HomeLoadMenuService = new HomeLoadMenuService();
 
-        // TODO 菜单
-        let menuDao: IMenuDao = container.Get("IMenuDao");
-        let menu: MenuTable = new MenuTable();
-        menu.id = 1;
-        menu.yyyymmdd = DateHelper.GetYYYYMMDD();
-        menu.foodIdArr = [1, 2, 3];
-        menuDao.AddMenu(menu);
-    
-        // ---- INIT ----
-        let initilization: InitializationProcess = new InitializationProcess();
-        initilization.Run(container);
+        // ==== INJECT ====
+        // INJECT HOME SERVICE
+        homeService.Inject(http);
+        homeLoadMenuService.Inject(foodDao, menuDao, homeMenuCao, http);
 
-        // ---- RUN ----
-        let serviceManager: ServiceManager = container.Get(ServiceManager.name);
-        serviceManager.StartService();
+        // ==== INIT ====
+        // INIT HTTP
+        const viewPath: string = "../view/";
+        http.InitHttpView(9966, __dirname, viewPath, viewPath);
+
+        // INIT DAO
+        menuDao.Init();
+        foodDao.Init();
+
+        // INIT HOME SERVICE
+        homeService.Init();
+        homeLoadMenuService.Init();
+
+        // ==== RUN ====
+        http.Start();
     
     }
 

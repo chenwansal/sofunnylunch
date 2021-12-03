@@ -1,14 +1,12 @@
-import { IContainerInstance } from "../Audit/IContainerInstance";
-
 export class Container {
 
-    private instanceDic: Map<string, IContainerInstance>;
+    private instanceDic: Map<string, any>;
 
     constructor() {
         this.instanceDic = new Map();
     }
 
-    Set<T extends IContainerInstance>(typeName: string, obj: T): void {
+    Set(typeName: string, obj: any): void {
         let exists = this.instanceDic.get(typeName);
         if (exists == null) {
             this.instanceDic.set(typeName, obj);
@@ -17,7 +15,7 @@ export class Container {
         }
     }
 
-    Get<T extends IContainerInstance>(typeName: string): T {
+    Get<T>(typeName: string): T {
         let exists = this.instanceDic.get(typeName);
         if (exists != null) {
             return exists as T;

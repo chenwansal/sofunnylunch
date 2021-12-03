@@ -2,13 +2,12 @@ import { PathHelper } from "../../../Util/PathHelper";
 import { JsonVisitor } from "../../JsonVisitor";
 import { FoodTable } from "../../Table/FoodTable";
 import { readdirSync } from "fs";
-import { IFoodDao } from "./IFoodDao";
 
-export class FoodDao implements IFoodDao {
+export class FoodDao {
 
     allFood: FoodTable[];
 
-    CachingAllFood(): void {
+    Init(): void {
         this.allFood = this.GetAllFood();
     }
 
