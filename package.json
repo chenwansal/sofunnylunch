@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build_cli && npm run run_server",
-    "build_cli": "cd ./view && tsc && webpack",
-    "run_server": "tsc && node ./dist/App.js"
+    "start": "npm run cli && npm run server",
+    "cli": "cd ./view && tsc && webpack",
+    "server": "tsc && node ./dist/App.js"
   },
   "author": "",
   "license": "ISC",

@@ -28,6 +28,12 @@ export class FoodDao {
         return res;
     }
 
+    GetFoodWithName(name: string): FoodTable {
+        if (this.allFood != null) {
+            return this.allFood.find(value => value.name == name);
+        }
+    }
+
     GetFood(id: number): FoodTable {
 
         if (this.allFood != null) {
@@ -37,6 +43,27 @@ export class FoodDao {
         let path = PathHelper.GetJsonDBFoodDir() + id + ".json";
         let foodTable = JsonVisitor.ReadJsonFromFile<FoodTable>(path);
         return foodTable;
+    }
+
+    AddFoodWithName(foodName: string): number {
+
+        let exist = this.GetFoodWithName(foodName);
+
+        if (exist) {
+            return exist.id;
+        }
+
+        let lastFood = this.allFood[this.allFood.length - 1];
+        let newId = lastFood.id + 1;
+
+        let food = new FoodTable();
+        food.id = newId;
+        food.name = foodName;
+        food.supplier = "";
+
+        this.AddFood(food);
+        return newId;
+
     }
 
     AddFood(foodTable: FoodTable): void {

@@ -1,12 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>午餐后端</title>
+    <style>
+        div {
+            margin-top: 10px;
+        }
+        input {
+            height: 30px;
+            margin-left: 10px;
+            padding: 5px;
+        }
+    </style>
 </head>
-<body>
-    
+
+<body id="Admin">
+
+    <h1>
+        菜单录入
+    </h1>
+
+    <div>
+        <label for="">选择日期</label><input id="MenuDate" type="date">
+    </div>
+
+    <div>
+        <div>
+            <label for="">A餐</label><input id="Menu_A" type="text" placeholder="输入菜名">
+        </div>
+
+        <div>
+            <label for="">B餐</label><input id="Menu_B" type="text" placeholder="输入菜名">
+        </div>
+
+        <div>
+            <label for="">C餐</label><input id="Menu_C" type="text" placeholder="输入菜名">
+        </div>
+
+        <div>
+            <label for="">D餐</label><input id="Menu_D" type="text" placeholder="输入菜名">
+        </div>
+
+        <div>
+            <label for="">E餐</label><input id="Menu_E" type="text" placeholder="输入菜名">
+        </div>
+
+        <div>
+            <label for="">F餐</label><input id="Menu_F" type="text" placeholder="输入菜名">
+        </div>
+    </div>
+
+    <div>
+        <input id="SubmitMenuButton" type="button" value="提交">
+    </div>
+
+    <script src="./out/bundle.js"></script>
+
 </body>
+
 </html>

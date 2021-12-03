@@ -13,11 +13,11 @@ export class HomeService {
     Init(): void {
 
         this.http.GetListen("/", (req, res) => {
-            res.render("/index.html");
+            res.render("index.html");
         });
 
         this.http.GetListen("/home", (req, res) => {
-            res.render("/index.html");
+            res.render("index.html");
         });
 
     }

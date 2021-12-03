@@ -22,12 +22,12 @@ export class MenuDao {
             return this.todayMenu;
         }
 
-        if (this.allMenu != null) {
-            this.todayMenu = this.allMenu.find(value => value.yyyymmdd == DateHelper.GetYYYYMMDD());
-            return this.todayMenu;
-        } else {
-            console.warn("找不到菜单");
+        if (this.allMenu == null) {
+            this.allMenu = this.GetAllMenu();
         }
+
+        this.todayMenu = this.allMenu.find(value => value.yyyymmdd == DateHelper.GetYYYYMMDD());
+        return this.todayMenu;
 
     }
 
