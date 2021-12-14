@@ -1,0 +1,1 @@
+{"version":3,"file":"MenuTable.js","sourceRoot":"./src/","sources":["DB/Table/MenuTable.ts"],"names":[],"mappings":";;;AAEA,MAAa,SAAS;CAIrB;AAJD,8BAIC","sourcesContent":["import { FoodTable } from \"./FoodTable\";\r\n\r\nexport class MenuTable {\r\n    id: number;\r\n    yyyymmdd: string;\r\n    foodIdArr: number[];\r\n}"]}

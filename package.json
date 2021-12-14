@@ -7,12 +7,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run cli && npm run server",
     "cli": "cd ./view && tsc && webpack",
-    "server": "tsc && node ./dist/App.js"
+    "server": "tsc && node ./dist/App.js",
+    "ts": "ts-node ./src/App.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
-    "jackwebutil": "^1.5.0"
+    "jackwebutil": "^1.5.0",
+    "ts-node": "^10.4.0"
   }
 }

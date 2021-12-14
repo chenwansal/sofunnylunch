@@ -6,28 +6,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
-    <title>午餐吃得怎样</title>
+    <title>真有趣午餐评价</title>
+    <style>
+        i {
+            font-style: normal;
+        }
+        li {
+            list-style-type: none;
+        }
+        .body {
+            width: 540px;
+            margin: 0 auto;
+            border: 2px solid #CC0000;
+        }
+        .text-center {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body id="Home">
 
     <div id="Body" class="body">
 
+        <div id="Nav">
+            <h1 class="text-center">
+                真有趣午餐评价
+            </h1>
+        </div>
+
         <div id="MainTitle" class="main-title">
             
-            <h1>
-                2021.11.17 午餐菜单
-            </h1>
+            <h3 class="text-center">
+                2000-01-01 午餐菜单
+            </h3>
 
         </div>
 
         <div id="MenuList" class="menu-list">
 
-            <h3>
-                今日菜单：
-            </h3>
-
             <ul>
+                <li class="menu-food" foodId="">
+                    <i>红烧鱼(提供方:小厨房)</i>
+                    <input type="button" value="评价">
+                </li>
             </ul>
 
         </div>
@@ -42,8 +64,14 @@
 
         </div>
         
+        <footer class="text-center">
+            <p>非商业用途，如有侵权请联系作者<br>
+                杰克有茶 / chenwan@xmfunny.com</p>
+        </footer>
 
     </div>
+
+    
 
     <script src="./out/bundle.js"></script>
 </body>

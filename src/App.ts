@@ -7,10 +7,30 @@ import { HomeLoadMenuService } from "./Service/Home/Service/HomeLoadMenuService"
 import { HomeService } from "./Service/Home/Service/HomeService";
 import { PathHelper } from "./Util/PathHelper";
 import { AdminAddMenuService } from "./Service/Admin/AdminAddMenuService";
+import { JsonVisitor } from "./DB/JsonVisitor";
+import { IdRecordTable } from "./DB/Table/IdRecordTable";
 
 class App {
 
     static main() {
+
+        // 初始化路径
+        PathHelper.Init();
+
+        // 初始化表 ID
+        let idTable: IdRecordTable = JsonVisitor.ReadJsonFromFile<IdRecordTable>(PathHelper.GetIdRecordFilePath());
+        if (!idTable) {
+            idTable = new IdRecordTable();
+            idTable.foodId = 0;
+            idTable.menuId = 0;
+            JsonVisitor.WriteToFile(PathHelper.GetIdRecordFilePath(), idTable);
+            console.log("创建表ID记录文件");
+        } else {
+            console.log("读取表ID记录文件");
+        }
+        FoodDao.currentId = idTable.foodId;
+        MenuDao.currentId = idTable.menuId;
+        console.log("初始化表ID");
 
         // ==== CTOR ====
         // CTOR HTTP
@@ -59,7 +79,7 @@ class App {
 
         // ==== RUN ====
         http.Start();
-    
+
     }
 
 }

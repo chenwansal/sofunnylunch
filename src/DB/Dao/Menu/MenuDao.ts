@@ -3,8 +3,11 @@ import { MenuTable } from "../../Table/MenuTable";
 import { readdirSync, mkdirSync, existsSync } from "fs";
 import { JsonVisitor } from "../../JsonVisitor";
 import { PathHelper } from "../../../Util/PathHelper";
+import { IdRecordDao } from "../IdRecord/IdRecordDao";
 
 export class MenuDao {
+
+    static currentId: number;
 
     allMenu: MenuTable[];
     todayMenu: MenuTable;
@@ -18,11 +21,11 @@ export class MenuDao {
 
     GetTodayMenu(): MenuTable {
 
-        if (this.todayMenu != null) {
+        if (this.todayMenu) {
             return this.todayMenu;
         }
 
-        if (this.allMenu == null) {
+        if (!this.allMenu) {
             this.allMenu = this.GetAllMenu();
         }
 
@@ -33,18 +36,22 @@ export class MenuDao {
 
     AddMenu(menu: MenuTable): void {
 
-        if (this.allMenu != null) {
+        if (this.allMenu) {
             this.allMenu.push(menu);
         }
 
         let dir = PathHelper.GetJsonDBMenuDir() + menu.yyyymmdd;
         let path = dir + ".json";
         JsonVisitor.WriteToFile(path, menu);
+
+        MenuDao.currentId += 1;
+        IdRecordDao.WriteId();
+
     }
 
     GetAllMenu(): MenuTable[] {
 
-        if (this.allMenu != null) {
+        if (this.allMenu) {
             return this.allMenu;
         }
 

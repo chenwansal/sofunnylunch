@@ -1,0 +1,1 @@
+{"version":3,"file":"CommentTable.js","sourceRoot":"./src/","sources":["DB/Table/CommentTable.ts"],"names":[],"mappings":";;;AAAA,MAAa,YAAY;CAKxB;AALD,oCAKC","sourcesContent":["export class CommentTable {\r\n    foodId: number;\r\n    commenter: string;\r\n    content: string;\r\n    date: string;\r\n}"]}

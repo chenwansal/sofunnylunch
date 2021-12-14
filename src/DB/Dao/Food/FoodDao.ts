@@ -2,8 +2,11 @@ import { PathHelper } from "../../../Util/PathHelper";
 import { JsonVisitor } from "../../JsonVisitor";
 import { FoodTable } from "../../Table/FoodTable";
 import { readdirSync } from "fs";
+import { IdRecordDao } from "../IdRecord/IdRecordDao";
 
 export class FoodDao {
+
+    static currentId: number;
 
     allFood: FoodTable[];
 
@@ -13,7 +16,7 @@ export class FoodDao {
 
     GetAllFood(): FoodTable[] {
 
-        if (this.allFood != null) {
+        if (this.allFood) {
             return this.allFood;
         }
 
@@ -29,14 +32,14 @@ export class FoodDao {
     }
 
     GetFoodWithName(name: string): FoodTable {
-        if (this.allFood != null) {
+        if (this.allFood) {
             return this.allFood.find(value => value.name == name);
         }
     }
 
     GetFood(id: number): FoodTable {
 
-        if (this.allFood != null) {
+        if (this.allFood) {
             return this.allFood.find(value => value.id == id);
         }
 
@@ -45,30 +48,31 @@ export class FoodDao {
         return foodTable;
     }
 
-    AddFoodWithName(foodName: string): number {
+    AddFoodWithName(foodName: string): FoodTable {
 
         let exist = this.GetFoodWithName(foodName);
 
         if (exist) {
-            return exist.id;
+            return exist;
         }
 
-        let lastFood = this.allFood[this.allFood.length - 1];
-        let newId = lastFood.id + 1;
-
         let food = new FoodTable();
-        food.id = newId;
+        food.id = FoodDao.currentId;
         food.name = foodName;
         food.supplier = "";
 
-        this.AddFood(food);
-        return newId;
+        this.WriteFood(food);
+
+        FoodDao.currentId += 1;
+        IdRecordDao.WriteId();
+
+        return food;
 
     }
 
-    AddFood(foodTable: FoodTable): void {
+    private WriteFood(foodTable: FoodTable): void {
 
-        if (this.allFood != null) {
+        if (this.allFood) {
             this.allFood.push(foodTable);
         }
 
@@ -76,9 +80,9 @@ export class FoodDao {
         JsonVisitor.WriteToFile(path, foodTable);
     }
 
-    AddFoods(foodTables: FoodTable[]): void {
+    private WriteFoods(foodTables: FoodTable[]): void {
         for (let i = 0; i < foodTables.length; i += 1) {
-            this.AddFood(foodTables[i]);
+            this.WriteFood(foodTables[i]);
         }
     }
 

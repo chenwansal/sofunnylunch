@@ -1,4 +1,4 @@
-import { readFile, readFileSync, writeFile, writeFileSync } from "fs"
+import { readFile, readFileSync, writeFile, writeFileSync, existsSync } from "fs"
 
 export class JsonVisitor {
 
@@ -11,6 +11,9 @@ export class JsonVisitor {
     }
 
     static ReadJsonFromFile<T>(filePath:string): T {
+        if (!existsSync(filePath)) {
+            return null;
+        }
         let data: Buffer = readFileSync(filePath);
         let jsonStr = data.toString();
         let json = JSON.parse(jsonStr);

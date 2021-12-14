@@ -33,19 +33,26 @@ export class HomeLoadMenuService {
 
         this.http.PostListen("/GetMenu", (req, res) => {
             let dto = this.GetTodayMenuDto();
-            console.log(dto);
+            if (!dto) {
+                return;
+            }
             res.json(dto);
         });
 
     }
 
-    GetTodayMenuDto(): MenuDto {
+    private GetTodayMenuDto(): MenuDto {
 
         let dto: MenuDto = this.homeMenuCao.GetCachedMenuDto();
 
         if (dto == null) {
 
             let menu: MenuTable = this.menuDao.GetTodayMenu();
+            if (!menu) {
+                console.log("不存在今日菜单");
+                return null;
+            }
+
             let foodArr: FoodTable[] = [];
             for (let i = 0; i < menu.foodIdArr.length; i += 1) {
                 let foodId = menu.foodIdArr[i];

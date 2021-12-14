@@ -4,6 +4,7 @@ export class PathHelper {
 
     static Init(): void {
 
+        this.MkdirIfNotExists(this.GetDbRootDir())
         this.MkdirIfNotExists(this.GetJsonDBFoodDir());
         this.MkdirIfNotExists(this.GetJsonDBMenuDir());
         this.MkdirIfNotExists(this.GetJsonDBCommentDir());
@@ -12,6 +13,14 @@ export class PathHelper {
 
     static GetRootDir(): string {
         return process.cwd();
+    }
+
+    static GetDbRootDir(): string {
+        return this.GetRootDir() + "/jsondb/"
+    }
+
+    static GetIdRecordFilePath() : string {
+        return this.GetDbRootDir() + "IdRecord.json";
     }
 
     static GetJsonDBMenuDir(): string {

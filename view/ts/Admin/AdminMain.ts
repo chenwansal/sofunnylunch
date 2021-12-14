@@ -5,9 +5,10 @@ export class AdminMain {
 
     static Main() {
         let admin = document.getElementById("Admin");
-        if (admin) {
-            ListenSubmitMenu();
+        if (!admin) {
+            return;
         }
+        ListenSubmitMenu();
     }
 }
 
