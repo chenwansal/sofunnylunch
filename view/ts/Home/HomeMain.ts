@@ -114,6 +114,7 @@ let CommentData = {
     foodId: 0,
     star: 1,
     content: "",
+    commenter: "",
 }
 
 let starArr: HTMLImageElement[] = [];
@@ -137,6 +138,10 @@ function InitComment(): void {
     }
 
     // SUBMIT
+    let submitComment = document.getElementById("SubComment");
+    submitComment.onclick = (e) => {
+        SubmitComment();
+    };
 
     // CLOSE
     let closeCommentBtn = document.getElementById("CloseComment");
@@ -175,8 +180,27 @@ function ShowComment(isShow: boolean): void {
 function PopupComment(foodId: number, foodName: string): void {
     
     let title = document.getElementById("CommentTitle");
-    title.innerText = foodName;
+    title.innerText = "评价: " + foodName;
 
     CommentData.foodId = foodId;
 
+}
+
+function SubmitComment(): void {
+
+    let content = document.getElementById("CommentContent") as HTMLTextAreaElement;
+    CommentData.content = content.value;
+    console.assert(content);
+
+    let commenter = document.getElementById("Commenter") as HTMLInputElement;
+    CommentData.commenter = commenter.value;
+    console.assert(commenter);
+
+    axios.post("/Comment", {
+        data: CommentData
+    }).then(res => {
+        console.log(res.data);
+    }).catch(err => {
+        console.error(err);
+    });
 }

@@ -27,6 +27,10 @@
             text-align: center;
         }
 
+        .mt20 {
+            margin-top: 20px;
+        }
+
         /* BODY */
         .body {
             width: 540px;
@@ -90,7 +94,6 @@
         .popup-comment .comment-button-group input {
             margin-right: 10px;
         }
-
     </style>
 
 </head>
@@ -115,11 +118,16 @@
                     <img star="4" src="./Heart.png" alt="">
                     <img star="5" src="./Heart.png" alt=""> -->
                 </div>
-                <div id="CommentContent" class="comment-content">
+                <div class="comment-content">
                     <label for="">留言:</label>
                     <div>
-                        <textarea name="" id="" cols="60" rows="4" placeholder="建议具体地评价: 太咸、太辣、主菜太少、饭馊了 / 鸡腿好吃&#10;不建议含糊地评价: 太难吃了!"></textarea>
+                        <textarea id="CommentContent" name="" cols="60" rows="4"
+                            placeholder="建议具体地评价: 太咸、太辣、主菜太少、饭馊了 / 鸡腿好吃&#10;不建议含糊地评价: 太难吃了!"></textarea>
                     </div>
+                </div>
+                <div class="mt20">
+                    <label for="">留言者:</label>
+                    <input id="Commenter" type="text" placeholder="(选填)">
                 </div>
                 <div id="CommentButtonGroup" class="comment-button-group">
                     <input id="SubComment" class="sub-button" type="button" value="提交">

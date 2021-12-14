@@ -9,6 +9,7 @@ import { PathHelper } from "./Util/PathHelper";
 import { AdminAddMenuService } from "./Service/Admin/AdminAddMenuService";
 import { JsonVisitor } from "./DB/JsonVisitor";
 import { IdRecordTable } from "./DB/Table/IdRecordTable";
+import { HomeCommentService } from "./Service/Home/Service/HomeCommentService";
 
 class App {
 
@@ -46,6 +47,7 @@ class App {
         // CTOR HOME SERVICE
         let homeService: HomeService = new HomeService();
         let homeLoadMenuService: HomeLoadMenuService = new HomeLoadMenuService();
+        let homeCommentService: HomeCommentService = new HomeCommentService();
 
         // CTOR ADMIN SERVICE
         let adminService: AdminService = new AdminService();
@@ -55,6 +57,7 @@ class App {
         // INJECT HOME SERVICE
         homeService.Inject(http);
         homeLoadMenuService.Inject(foodDao, menuDao, homeMenuCao, http);
+        homeCommentService.Inject(http);
 
         // INJECT ADMIN SERVICE
         adminService.Inject(http);
@@ -72,6 +75,7 @@ class App {
         // INIT HOME SERVICE
         homeService.Init();
         homeLoadMenuService.Init();
+        homeCommentService.Init();
 
         // INIT ADMIN SERVICE
         adminService.Init();

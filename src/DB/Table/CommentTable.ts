@@ -1,6 +1,9 @@
 export class CommentTable {
+    id: number;
     foodId: number;
+    star: number;
     commenter: string;
     content: string;
-    date: string;
+    yymmdd: string;
+    ip: string;
 }

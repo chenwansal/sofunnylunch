@@ -81,6 +81,7 @@ let CommentData = {
     foodId: 0,
     star: 1,
     content: "",
+    commenter: "",
 };
 let starArr = [];
 let redHeartSrc = "./Heart.png";
@@ -100,6 +101,10 @@ function InitComment() {
         };
     }
     // SUBMIT
+    let submitComment = document.getElementById("SubComment");
+    submitComment.onclick = (e) => {
+        SubmitComment();
+    };
     // CLOSE
     let closeCommentBtn = document.getElementById("CloseComment");
     closeCommentBtn.onclick = (e) => {
@@ -132,6 +137,21 @@ function ShowComment(isShow) {
 }
 function PopupComment(foodId, foodName) {
     let title = document.getElementById("CommentTitle");
-    title.innerText = foodName;
+    title.innerText = "评价: " + foodName;
     CommentData.foodId = foodId;
+}
+function SubmitComment() {
+    let content = document.getElementById("CommentContent");
+    CommentData.content = content.value;
+    console.assert(content);
+    let commenter = document.getElementById("Commenter");
+    CommentData.commenter = commenter.value;
+    console.assert(commenter);
+    axios_1.default.post("/Comment", {
+        data: CommentData
+    }).then(res => {
+        console.log(res.data);
+    }).catch(err => {
+        console.error(err);
+    });
 }
