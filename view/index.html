@@ -8,27 +8,128 @@
     <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
     <title>真有趣午餐评价</title>
     <style>
+        /* 通用 */
         i {
             font-style: normal;
         }
+
         li {
             list-style-type: none;
         }
+
+        .sub-button {
+            width: 80px;
+            height: 30px;
+            font-size: 14px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* BODY */
         .body {
             width: 540px;
             margin: 0 auto;
             border: 2px solid #CC0000;
+            position: relative;
         }
-        .text-center {
-            text-align: center;
+
+        /* MENU */
+        .menu-list {
+            width: 100%;
+            display: block;
         }
+
+        .menu-list .menu-food {
+            height: 35px;
+            display: block;
+            margin-top: 15px;
+        }
+
+        .menu-list input {
+            margin-left: 20px;
+        }
+
+        /* POPUP COMMENT */
+        .popup-mask {
+            width: 100%;
+            height: 768px;
+            display: block;
+            background-color: rgb(50, 50, 50);
+            position: absolute;
+            z-index: 5;
+        }
+
+        .popup-comment {
+            width: 540px;
+            height: 500px;
+            display: block;
+            background-color: #fff;
+            position: absolute;
+            top: 50px;
+            z-index: 6;
+        }
+
+        .popup-comment .comment-bd {
+            margin-left: 50px;
+        }
+
+        .popup-comment .comment-star-group img {
+            margin-right: 15px;
+        }
+
+        .popup-comment .comment-content {
+            margin-top: 20px;
+        }
+
+        .popup-comment .comment-button-group {
+            margin-top: 20px;
+        }
+
+        .popup-comment .comment-button-group input {
+            margin-right: 10px;
+        }
+
     </style>
+
 </head>
 
 <body id="Home">
 
+    <div id="PopupMask" class="popup-mask">
+
+    </div>
+
     <div id="Body" class="body">
 
+        <!-- 评价弹窗 -->
+        <div id="PopupComment" class="popup-comment">
+            <h1 id="CommentTitle" class="text-center">红烧鱼</h1>
+            <div class="comment-bd">
+                <div id="CommentStarGroup" class="comment-star-group">
+                    <label for="">评分：</label>
+                    <!-- <img star="1" src="./Heart.png" alt="">
+                    <img star="2" src="./Heart.png" alt="">
+                    <img star="3" src="./Heart.png" alt="">
+                    <img star="4" src="./Heart.png" alt="">
+                    <img star="5" src="./Heart.png" alt=""> -->
+                </div>
+                <div id="CommentContent" class="comment-content">
+                    <label for="">留言:</label>
+                    <div>
+                        <textarea name="" id="" cols="60" rows="4" placeholder="建议具体地评价: 太咸、太辣、主菜太少、饭馊了 / 鸡腿好吃&#10;不建议含糊地评价: 太难吃了!"></textarea>
+                    </div>
+                </div>
+                <div id="CommentButtonGroup" class="comment-button-group">
+                    <input id="SubComment" class="sub-button" type="button" value="提交">
+                    <input id="CloseComment" class="sub-button" type="button" value="关闭">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 标题 -->
         <div id="Nav">
             <h1 class="text-center">
                 真有趣午餐评价
@@ -36,13 +137,14 @@
         </div>
 
         <div id="MainTitle" class="main-title">
-            
+
             <h3 class="text-center">
                 2000-01-01 午餐菜单
             </h3>
 
         </div>
 
+        <!-- 今日菜单 -->
         <div id="MenuList" class="menu-list">
 
             <ul>
@@ -54,6 +156,7 @@
 
         </div>
 
+        <!-- 用餐安排 -->
         <div id="MainNotice" class="main-notice">
 
             <h3>用餐安排：</h3>
@@ -63,15 +166,13 @@
             <p>第三组：12：10, 3层品牌文创、4层、5层的小伙伴</p>
 
         </div>
-        
+
         <footer class="text-center">
             <p>非商业用途，如有侵权请联系作者<br>
                 杰克有茶 / chenwan@xmfunny.com</p>
         </footer>
 
     </div>
-
-    
 
     <script src="./out/bundle.js"></script>
 </body>

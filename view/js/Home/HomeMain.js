@@ -10,20 +10,33 @@ class HomeMain {
             return;
         }
         GetMenu();
+        // 关闭用餐排队
         let lunchOrder = document.getElementById("MainNotice");
         lunchOrder.style.display = "none";
+        // 关闭评论
+        ShowComment(false);
+        // 初始化评论
+        InitComment();
     }
 }
 exports.HomeMain = HomeMain;
-// HOME
+// ==== 菜单相关 ====
 function GetMenu() {
     axios_1.default.post("/GetMenu").then(res => {
         let data = res.data;
         SetMenuDate(data.yyyymmdd);
         let menuListEle = document.getElementById("MenuList");
         let ul = menuListEle.lastElementChild;
+        for (let i = 0; i < ul.children.length; i += 1) {
+            let liChild = ul.children[i];
+            liChild.remove();
+            // console.log("移除子节点" + liChild.nodeName);
+        }
         for (let i = 0; i < data.foodArr.length; i += 1) {
             let food = data.foodArr[i];
+            if (!food.name || food.name === "") {
+                continue;
+            }
             let li = CreateFoodLi(food.id, food.name, food.supplier);
             ul.appendChild(li);
         }
@@ -53,6 +66,72 @@ function CreateFoodLi(foodId, foodName, supplier) {
     let inputComment = document.createElement("input");
     inputComment.type = "button";
     inputComment.value = "评价";
+    inputComment.setAttribute("foodId", foodId.toString());
+    inputComment.onclick = (e) => {
+        let _foodId = foodId;
+        let _foodName = foodName;
+        ShowComment(true);
+        PopupComment(_foodId, _foodName);
+    };
     li.appendChild(inputComment);
     return li;
+}
+// ==== 评论相关 ====
+let CommentData = {
+    foodId: 0,
+    star: 1,
+    content: "",
+};
+let starArr = [];
+let redHeartSrc = "./Heart.png";
+let emptyHeartSrc = "./EmptyHeart.png";
+function InitComment() {
+    // STAR
+    let starGroup = document.getElementById("CommentStarGroup");
+    for (let i = 0; i < 5; i += 1) {
+        let starImg = document.createElement("img");
+        starImg.src = redHeartSrc;
+        starImg.setAttribute("star", i.toString());
+        starArr.push(starImg);
+        starGroup.appendChild(starImg);
+        starImg.onclick = (e) => {
+            let j = i;
+            SetCommentStar(j);
+        };
+    }
+    // SUBMIT
+    // CLOSE
+    let closeCommentBtn = document.getElementById("CloseComment");
+    closeCommentBtn.onclick = (e) => {
+        ShowComment(false);
+    };
+}
+function SetCommentStar(score) {
+    for (let i = 0; i < starArr.length; i += 1) {
+        let starImg = starArr[i];
+        if (i <= score) {
+            starImg.src = redHeartSrc;
+        }
+        else {
+            starImg.src = emptyHeartSrc;
+        }
+    }
+    CommentData.star = score;
+}
+function ShowComment(isShow) {
+    let popupMask = document.getElementById("PopupMask");
+    let commentBd = document.getElementById("PopupComment");
+    if (isShow) {
+        popupMask.style.display = "block";
+        commentBd.style.display = "block";
+    }
+    else {
+        popupMask.style.display = "none";
+        commentBd.style.display = "none";
+    }
+}
+function PopupComment(foodId, foodName) {
+    let title = document.getElementById("CommentTitle");
+    title.innerText = foodName;
+    CommentData.foodId = foodId;
 }

@@ -36,6 +36,10 @@ export class MenuDao {
 
     AddMenu(menu: MenuTable): void {
 
+        if (menu.yyyymmdd == this.todayMenu.yyyymmdd) {
+            this.todayMenu = menu;
+        }
+
         if (this.allMenu) {
             this.allMenu.push(menu);
         }
