@@ -4,13 +4,19 @@ exports.PathHelper = void 0;
 const fs_1 = require("fs");
 class PathHelper {
     static Init() {
-        this.MkdirIfNotExists(this.GetRootDir() + "/jsondb/");
+        this.MkdirIfNotExists(this.GetDbRootDir());
         this.MkdirIfNotExists(this.GetJsonDBFoodDir());
         this.MkdirIfNotExists(this.GetJsonDBMenuDir());
         this.MkdirIfNotExists(this.GetJsonDBCommentDir());
     }
     static GetRootDir() {
         return process.cwd();
+    }
+    static GetDbRootDir() {
+        return this.GetRootDir() + "/jsondb/";
+    }
+    static GetIdRecordFilePath() {
+        return this.GetDbRootDir() + "IdRecord.json";
     }
     static GetJsonDBMenuDir() {
         return this.GetRootDir() + "/jsondb/Menu/";

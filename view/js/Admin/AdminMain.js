@@ -9,10 +9,22 @@ class AdminMain {
         if (!admin) {
             return;
         }
+        ListenNavSwitch();
         ListenSubmitMenu();
     }
 }
 exports.AdminMain = AdminMain;
+// NAV SWITCH
+function ListenNavSwitch() {
+    let navAddMenuLink = document.getElementById("NavAddMenu");
+    navAddMenuLink.onclick = OpenAddMenuBody;
+}
+function OpenAddMenuBody(e) {
+    let body = document.getElementById("AddMenuBody");
+    body.style.display = "block";
+}
+function OpenStatisticsBocy(e) {
+}
 // ADMIN
 function ListenSubmitMenu() {
     let submitButton = document.getElementById("SubmitMenuButton");
@@ -33,6 +45,8 @@ function ListenSubmitMenu() {
             data: newMenu
         }).then(res => {
             console.log("收到:" + res.data);
+        }).catch(err => {
+            console.log("err:" + err);
         });
     };
 }

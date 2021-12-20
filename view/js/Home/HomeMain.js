@@ -12,7 +12,9 @@ class HomeMain {
         GetMenu();
         // 关闭用餐排队
         let lunchOrder = document.getElementById("MainNotice");
-        lunchOrder.style.display = "none";
+        if (lunchOrder) {
+            lunchOrder.style.display = "none";
+        }
         // 关闭评论
         ShowComment(false);
         // 初始化评论

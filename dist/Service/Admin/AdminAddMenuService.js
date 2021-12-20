@@ -15,8 +15,8 @@ class AdminAddMenuService {
             let newMenu = req.body.data;
             for (let i = 0; i < newMenu.foodArr.length; i += 1) {
                 let foodName = newMenu.foodArr[i];
-                let id = this.foodDao.AddFoodWithName(foodName);
-                foodIdArr.push(id);
+                let insertedFood = this.foodDao.AddFoodWithName(foodName);
+                foodIdArr.push(insertedFood.id);
             }
             let menu = new MenuTable_1.MenuTable();
             menu.yyyymmdd = newMenu.date;

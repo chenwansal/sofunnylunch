@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+em {
+    font-style: normal;
+}
+
+a {
+    cursor: pointer;
+}
+
+.color-link {
+    color: #cc0000;
+}
+
+.center {
+    text-align: center;
+}
+
+.mt20 {
+    margin-top: 20px;
+}

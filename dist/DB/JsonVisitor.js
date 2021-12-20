@@ -11,6 +11,9 @@ class JsonVisitor {
         });
     }
     static ReadJsonFromFile(filePath) {
+        if (!fs_1.existsSync(filePath)) {
+            return null;
+        }
         let data = fs_1.readFileSync(filePath);
         let jsonStr = data.toString();
         let json = JSON.parse(jsonStr);

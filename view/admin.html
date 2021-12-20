@@ -6,59 +6,105 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>午餐后端</title>
+    <link rel="stylesheet" href="css/common.css">
     <style>
-        div {
-            margin-top: 10px;
-        }
+
         input {
             height: 30px;
             margin-left: 10px;
             padding: 5px;
         }
+
+        .admin {
+            width: 100%;
+            display: block;
+            position: relative;
+        }
+
+        .nav {
+            width: 200px;
+            display: block;
+            float: left;
+            background-color: #eee;
+        }
+
+        .main-body {
+            width: 1000px;
+            float: left;
+            padding-left: 30px;
+            padding-top: 20px;
+        }
+
     </style>
+
 </head>
 
-<body id="Admin">
+<body id="Admin" class="admin">
 
-    <h1>
-        菜单录入
-    </h1>
+    <div id="Nav" class="nav">
 
-    <div>
-        <label for="">选择日期</label><input id="MenuDate" type="date">
+        <h2 class="title center mt20">
+            导航栏
+        </h2>
+
+        <div class="button-group center mt20">
+            <div class="mt20">
+                <a id="NavAddMenu" class="color-link">录入菜品</a>
+            </div>
+            <div class="mt20">
+                <a id="NavStatistics" class="color-link">统计</a>
+            </div>
+        </div>
+
     </div>
 
-    <div>
+    <div id="AddMenuBody" class="main-body">
+        <h2>
+            菜单录入
+        </h2>
+
         <div>
-            <label for="">A餐</label><input id="Menu_A" type="text" placeholder="输入菜名">
+            <label for="">选择日期</label><input id="MenuDate" type="date">
         </div>
 
         <div>
-            <label for="">B餐</label><input id="Menu_B" type="text" placeholder="输入菜名">
+            <div>
+                <label for="">A餐</label><input id="Menu_A" type="text" placeholder="输入菜名">
+            </div>
+
+            <div>
+                <label for="">B餐</label><input id="Menu_B" type="text" placeholder="输入菜名">
+            </div>
+
+            <div>
+                <label for="">C餐</label><input id="Menu_C" type="text" placeholder="输入菜名">
+            </div>
+
+            <div>
+                <label for="">D餐</label><input id="Menu_D" type="text" placeholder="输入菜名">
+            </div>
+
+            <div>
+                <label for="">E餐</label><input id="Menu_E" type="text" placeholder="输入菜名">
+            </div>
+
+            <div>
+                <label for="">F餐</label><input id="Menu_F" type="text" placeholder="输入菜名">
+            </div>
         </div>
 
         <div>
-            <label for="">C餐</label><input id="Menu_C" type="text" placeholder="输入菜名">
+            <input id="SubmitMenuButton" type="button" value="提交">
         </div>
-
-        <div>
-            <label for="">D餐</label><input id="Menu_D" type="text" placeholder="输入菜名">
-        </div>
-
-        <div>
-            <label for="">E餐</label><input id="Menu_E" type="text" placeholder="输入菜名">
-        </div>
-
-        <div>
-            <label for="">F餐</label><input id="Menu_F" type="text" placeholder="输入菜名">
-        </div>
-    </div>
-
-    <div>
-        <input id="SubmitMenuButton" type="button" value="提交">
     </div>
 
     <script src="./out/bundle.js"></script>
+    <script>
+        let height = window.innerHeight;
+        let nav = document.getElementById("Nav");
+        nav.style.height = height + "px";
+        console.log(height)
+    </script>
 
 </body>
 

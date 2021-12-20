@@ -11,8 +11,10 @@ export class HomeMain {
         GetMenu();
 
         // 关闭用餐排队
-        let lunchOrder = document.getElementById("MainNotice")
-        lunchOrder.style.display = "none";
+        let lunchOrder = document.getElementById("MainNotice");
+        if (lunchOrder) {
+            lunchOrder.style.display = "none";
+        }
 
         // 关闭评论
         ShowComment(false);

@@ -12,7 +12,9 @@ class HomeLoadMenuService {
     Init() {
         this.http.PostListen("/GetMenu", (req, res) => {
             let dto = this.GetTodayMenuDto();
-            console.log(dto);
+            if (!dto) {
+                return;
+            }
             res.json(dto);
         });
     }
@@ -20,6 +22,10 @@ class HomeLoadMenuService {
         let dto = this.homeMenuCao.GetCachedMenuDto();
         if (dto == null) {
             let menu = this.menuDao.GetTodayMenu();
+            if (!menu) {
+                console.log("不存在今日菜单");
+                return null;
+            }
             let foodArr = [];
             for (let i = 0; i < menu.foodIdArr.length; i += 1) {
                 let foodId = menu.foodIdArr[i];

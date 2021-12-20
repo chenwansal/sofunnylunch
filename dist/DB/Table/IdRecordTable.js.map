@@ -1,0 +1,1 @@
+{"version":3,"file":"IdRecordTable.js","sourceRoot":"./src/","sources":["DB/Table/IdRecordTable.ts"],"names":[],"mappings":";;;AAAA,MAAa,aAAa;CAIzB;AAJD,sCAIC","sourcesContent":["export class IdRecordTable {\r\n    foodId: number;\r\n    menuId: number;\r\n    commentId: number;\r\n}"]}

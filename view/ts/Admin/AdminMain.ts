@@ -8,12 +8,31 @@ export class AdminMain {
         if (!admin) {
             return;
         }
+        
+        ListenNavSwitch();
+
         ListenSubmitMenu();
+        
     }
 }
 
+// NAV SWITCH
+function ListenNavSwitch(): void {
+    let navAddMenuLink = document.getElementById("NavAddMenu");
+    navAddMenuLink.onclick = OpenAddMenuBody;
+}
+
+function OpenAddMenuBody(e: MouseEvent): void {
+    let body = document.getElementById("AddMenuBody");
+    body.style.display = "block";
+}
+
+function OpenStatisticsBocy(e: MouseEvent): void {
+
+}
+
 // ADMIN
-function ListenSubmitMenu() {
+function ListenSubmitMenu(): void {
 
     type NewMenu = {
         date: string,
@@ -42,6 +61,8 @@ function ListenSubmitMenu() {
             data: newMenu
         }).then(res => {
             console.log("收到:" + res.data);
+        }).catch(err => {
+            console.log("err:" + err);
         });
     };
 
