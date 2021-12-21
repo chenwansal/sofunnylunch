@@ -1,5 +1,6 @@
 import axios from "axios";
 import { SplitDateStr } from "../Util/DateHelper";
+import { FoodGo } from "./Assets/FoodGo";
 
 export class HomeMain {
 
@@ -49,9 +50,8 @@ function GetMenu(): void {
         SetMenuDate(data.yyyymmdd);
 
         let menuListEle = document.getElementById("MenuList");
-        let ul = menuListEle.lastElementChild;
-        for (let i = 0; i < ul.children.length; i += 1) {
-            let liChild = ul.children[i];
+        for (let i = 0; i < menuListEle.children.length; i += 1) {
+            let liChild = menuListEle.children[i];
             liChild.remove();
             // console.log("移除子节点" + liChild.nodeName);
         }
@@ -61,8 +61,7 @@ function GetMenu(): void {
             if (!food.name || food.name === "") {
                 continue;
             }
-            let li = CreateFoodLi(food.id, food.name, food.supplier);
-            ul.appendChild(li);
+            let foodGo = new FoodGo(menuListEle, food.id, food.name, "");
         }
 
     });
@@ -74,41 +73,6 @@ function SetMenuDate(dateStr: string): void {
     let title = document.getElementById("MainTitle");
     let h1: HTMLElement = title.firstElementChild as HTMLElement;
     h1.innerText = dateStr + " 午餐菜单";
-}
-
-function CreateFoodLi(foodId: number, foodName: string, supplier: string): HTMLLIElement {
-
-    // <li> 菜元素
-    let li = document.createElement("li");
-    li.setAttribute("foodId", foodId.toString());
-    li.classList.add("menu-food");
-
-    // <i> 名称
-    let nameI = document.createElement("i");
-    let text = "";
-    text += foodName;
-    if (supplier) {
-        text += supplier;
-    }
-    nameI.innerText = text;
-
-    li.appendChild(nameI);
-
-    // <input> 评价
-    let inputComment = document.createElement("input");
-    inputComment.type = "button";
-    inputComment.value = "评价";
-    inputComment.setAttribute("foodId", foodId.toString());
-    inputComment.onclick = (e) => {
-        let _foodId = foodId;
-        let _foodName = foodName;
-        ShowComment(true);
-        PopupComment(_foodId, _foodName);
-    };
-
-    li.appendChild(inputComment);
-
-    return li;
 }
 
 // ==== 评论相关 ====

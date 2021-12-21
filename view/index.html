@@ -7,94 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
     <title>真有趣午餐评价</title>
-    <style>
-        /* 通用 */
-        i {
-            font-style: normal;
-        }
-
-        li {
-            list-style-type: none;
-        }
-
-        .sub-button {
-            width: 80px;
-            height: 30px;
-            font-size: 14px;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mt20 {
-            margin-top: 20px;
-        }
-
-        /* BODY */
-        .body {
-            width: 540px;
-            margin: 0 auto;
-            border: 2px solid #CC0000;
-            position: relative;
-        }
-
-        /* MENU */
-        .menu-list {
-            width: 100%;
-            display: block;
-        }
-
-        .menu-list .menu-food {
-            height: 35px;
-            display: block;
-            margin-top: 15px;
-        }
-
-        .menu-list input {
-            margin-left: 20px;
-        }
-
-        /* POPUP COMMENT */
-        .popup-mask {
-            width: 100%;
-            height: 768px;
-            display: block;
-            background-color: rgb(50, 50, 50);
-            position: absolute;
-            z-index: 5;
-        }
-
-        .popup-comment {
-            width: 540px;
-            height: 500px;
-            display: block;
-            background-color: #fff;
-            position: absolute;
-            top: 50px;
-            z-index: 6;
-        }
-
-        .popup-comment .comment-bd {
-            margin-left: 50px;
-        }
-
-        .popup-comment .comment-star-group img {
-            margin-right: 15px;
-        }
-
-        .popup-comment .comment-content {
-            margin-top: 20px;
-        }
-
-        .popup-comment .comment-button-group {
-            margin-top: 20px;
-        }
-
-        .popup-comment .comment-button-group input {
-            margin-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/index_menu.css">
 
 </head>
 
@@ -155,12 +70,65 @@
         <!-- 今日菜单 -->
         <div id="MenuList" class="menu-list">
 
-            <ul>
-                <li class="menu-food" foodId="">
-                    <i>红烧鱼(提供方:小厨房)</i>
-                    <input type="button" value="评价">
-                </li>
-            </ul>
+            <div class="food-element">
+
+                <div class="food-bd">
+                    <img src="" alt="">
+                    <p>菜品名称</p>
+                </div>
+
+                <div class="comment-bd">
+
+                    <div class="tag-group">
+
+                        <div class="tag">
+                            好吃
+                        </div>
+                        <div class="tag">
+                            好吃
+                        </div>
+                        <div class="tag">
+                            好吃
+                        </div>
+                        <div class="tag">
+                            好吃
+                        </div>
+                        <div class="tag">
+                            好吃
+                        </div>
+                        <div class="tag">
+                            好吃
+                        </div>
+                        <div class="tag">
+                            好吃
+                        </div>
+                        <div class="tag">
+                            好吃
+                        </div>
+                        <div class="tag">
+                            好吃
+                        </div>
+                        <div class="tag">
+                            好吃
+                        </div>
+
+                    </div>
+
+                    <div class="like-group">
+
+                        <i class="like-btn">
+                            好吃
+                        </i>
+
+                        <i class="unlike-btn">
+                            不好吃
+                        </i>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 

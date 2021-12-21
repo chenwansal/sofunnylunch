@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HomeMain = void 0;
 const axios_1 = require("axios");
 const DateHelper_1 = require("../Util/DateHelper");
+const FoodGo_1 = require("./Assets/FoodGo");
 class HomeMain {
     static Main() {
         let home = document.getElementById("Home");
@@ -28,9 +29,8 @@ function GetMenu() {
         let data = res.data;
         SetMenuDate(data.yyyymmdd);
         let menuListEle = document.getElementById("MenuList");
-        let ul = menuListEle.lastElementChild;
-        for (let i = 0; i < ul.children.length; i += 1) {
-            let liChild = ul.children[i];
+        for (let i = 0; i < menuListEle.children.length; i += 1) {
+            let liChild = menuListEle.children[i];
             liChild.remove();
             // console.log("移除子节点" + liChild.nodeName);
         }
@@ -39,8 +39,7 @@ function GetMenu() {
             if (!food.name || food.name === "") {
                 continue;
             }
-            let li = CreateFoodLi(food.id, food.name, food.supplier);
-            ul.appendChild(li);
+            let foodGo = new FoodGo_1.FoodGo(menuListEle, food.id, food.name, "");
         }
     });
 }
@@ -49,34 +48,6 @@ function SetMenuDate(dateStr) {
     let title = document.getElementById("MainTitle");
     let h1 = title.firstElementChild;
     h1.innerText = dateStr + " 午餐菜单";
-}
-function CreateFoodLi(foodId, foodName, supplier) {
-    // <li> 菜元素
-    let li = document.createElement("li");
-    li.setAttribute("foodId", foodId.toString());
-    li.classList.add("menu-food");
-    // <i> 名称
-    let nameI = document.createElement("i");
-    let text = "";
-    text += foodName;
-    if (supplier) {
-        text += supplier;
-    }
-    nameI.innerText = text;
-    li.appendChild(nameI);
-    // <input> 评价
-    let inputComment = document.createElement("input");
-    inputComment.type = "button";
-    inputComment.value = "评价";
-    inputComment.setAttribute("foodId", foodId.toString());
-    inputComment.onclick = (e) => {
-        let _foodId = foodId;
-        let _foodName = foodName;
-        ShowComment(true);
-        PopupComment(_foodId, _foodName);
-    };
-    li.appendChild(inputComment);
-    return li;
 }
 // ==== 评论相关 ====
 let CommentData = {
