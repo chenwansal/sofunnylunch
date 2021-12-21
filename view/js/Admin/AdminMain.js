@@ -16,14 +16,24 @@ class AdminMain {
 exports.AdminMain = AdminMain;
 // NAV SWITCH
 function ListenNavSwitch() {
-    let navAddMenuLink = document.getElementById("NavAddMenu");
-    navAddMenuLink.onclick = OpenAddMenuBody;
+    let navOpenAddMenuBody = document.getElementById("NavAddMenu");
+    navOpenAddMenuBody.onclick = (e) => {
+        OpenAddMenuBody(true);
+        OpenStatisticsBocy(false);
+    };
+    let navOpenStatisticsBody = document.getElementById("NavStatistics");
+    navOpenStatisticsBody.onclick = (e) => {
+        OpenAddMenuBody(false);
+        OpenStatisticsBocy(true);
+    };
 }
-function OpenAddMenuBody(e) {
+function OpenAddMenuBody(isOpen) {
     let body = document.getElementById("AddMenuBody");
-    body.style.display = "block";
+    body.style.display = isOpen ? "block" : "none";
 }
-function OpenStatisticsBocy(e) {
+function OpenStatisticsBocy(isOpen) {
+    let body = document.getElementById("StatisticsBody");
+    body.style.display = isOpen ? "block" : "none";
 }
 // ADMIN
 function ListenSubmitMenu() {

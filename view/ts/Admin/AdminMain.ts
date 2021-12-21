@@ -18,17 +18,29 @@ export class AdminMain {
 
 // NAV SWITCH
 function ListenNavSwitch(): void {
-    let navAddMenuLink = document.getElementById("NavAddMenu");
-    navAddMenuLink.onclick = OpenAddMenuBody;
+    
+    let navOpenAddMenuBody = document.getElementById("NavAddMenu");
+    navOpenAddMenuBody.onclick = (e) => {
+        OpenAddMenuBody(true);
+        OpenStatisticsBocy(false);
+    }
+
+    let navOpenStatisticsBody = document.getElementById("NavStatistics");
+    navOpenStatisticsBody.onclick = (e) => {
+        OpenAddMenuBody(false);
+        OpenStatisticsBocy(true);
+    };
+
 }
 
-function OpenAddMenuBody(e: MouseEvent): void {
+function OpenAddMenuBody(isOpen: boolean): void {
     let body = document.getElementById("AddMenuBody");
-    body.style.display = "block";
+    body.style.display = isOpen ? "block" : "none";
 }
 
-function OpenStatisticsBocy(e: MouseEvent): void {
-
+function OpenStatisticsBocy(isOpen: boolean): void {
+    let body = document.getElementById("StatisticsBody");
+    body.style.display = isOpen ? "block" : "none";
 }
 
 // ADMIN
