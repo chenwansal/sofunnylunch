@@ -4,6 +4,13 @@ exports.HomeMain = void 0;
 const axios_1 = require("axios");
 const DateHelper_1 = require("../Util/DateHelper");
 const FoodGo_1 = require("./Assets/FoodGo");
+let commentModel = {
+    foodId: 0,
+    star: 1,
+    tags: [],
+    content: "",
+    commenter: "",
+};
 class HomeMain {
     static Main() {
         let home = document.getElementById("Home");
@@ -16,6 +23,8 @@ class HomeMain {
         if (lunchOrder) {
             lunchOrder.style.display = "none";
         }
+        // 移除预置
+        RemovePreset();
         // 关闭评论
         ShowComment(false);
         // 初始化评论
@@ -23,25 +32,51 @@ class HomeMain {
     }
 }
 exports.HomeMain = HomeMain;
+function RemovePreset() {
+    // 移除预置菜单
+    let menuListEle = document.getElementById("MenuList");
+    for (let i = 0; i < menuListEle.children.length; i += 1) {
+        let liChild = menuListEle.children[i];
+        liChild.remove();
+    }
+}
 // ==== 菜单相关 ====
 function GetMenu() {
     axios_1.default.post("/GetMenu").then(res => {
         let data = res.data;
         SetMenuDate(data.yyyymmdd);
         let menuListEle = document.getElementById("MenuList");
-        for (let i = 0; i < menuListEle.children.length; i += 1) {
-            let liChild = menuListEle.children[i];
-            liChild.remove();
-            // console.log("移除子节点" + liChild.nodeName);
-        }
         for (let i = 0; i < data.foodArr.length; i += 1) {
             let food = data.foodArr[i];
             if (!food.name || food.name === "") {
                 continue;
             }
-            let foodGo = new FoodGo_1.FoodGo(menuListEle, food.id, food.name, "");
+            let foodGo = new FoodGo_1.FoodGo();
+            foodGo.Inject(commentModel);
+            foodGo.Init(menuListEle, food.id, food.name, "");
+            foodGo.AddTag("好不好吃");
+            foodGo.AddTag("难吃");
+            foodGo.OnCleanAllTag = CleanAllTag;
         }
     });
+}
+function CleanAllTag() {
+    commentModel.tags = [];
+    let tags = document.getElementsByClassName("tag");
+    for (let i = 0; i < tags.length; i += 1) {
+        let tag = tags[i];
+        tag.removeAttribute("active");
+    }
+    let likes = document.getElementsByClassName("like");
+    for (let i = 0; i < likes.length; i += 1) {
+        let like = likes[i];
+        like.removeAttribute("active");
+    }
+    let unlikes = document.getElementsByClassName("unlike");
+    for (let i = 0; i < unlikes.length; i += 1) {
+        let unlike = unlikes[i];
+        unlike.removeAttribute("active");
+    }
 }
 function SetMenuDate(dateStr) {
     dateStr = DateHelper_1.SplitDateStr(dateStr);
@@ -50,12 +85,6 @@ function SetMenuDate(dateStr) {
     h1.innerText = dateStr + " 午餐菜单";
 }
 // ==== 评论相关 ====
-let CommentData = {
-    foodId: 0,
-    star: 1,
-    content: "",
-    commenter: "",
-};
 let starArr = [];
 let redHeartSrc = "./Heart.png";
 let emptyHeartSrc = "./EmptyHeart.png";
@@ -94,7 +123,7 @@ function SetCommentStar(score) {
             starImg.src = emptyHeartSrc;
         }
     }
-    CommentData.star = score;
+    commentModel.star = score;
 }
 function ShowComment(isShow) {
     let popupMask = document.getElementById("PopupMask");
@@ -111,17 +140,17 @@ function ShowComment(isShow) {
 function PopupComment(foodId, foodName) {
     let title = document.getElementById("CommentTitle");
     title.innerText = "评价: " + foodName;
-    CommentData.foodId = foodId;
+    commentModel.foodId = foodId;
 }
 function SubmitComment() {
     let content = document.getElementById("CommentContent");
-    CommentData.content = content.value;
+    commentModel.content = content.value;
     console.assert(content);
     let commenter = document.getElementById("Commenter");
-    CommentData.commenter = commenter.value;
+    commentModel.commenter = commenter.value;
     console.assert(commenter);
     axios_1.default.post("/Comment", {
-        data: CommentData
+        data: commentModel
     }).then(res => {
         console.log(res.data);
     }).catch(err => {

@@ -39,7 +39,6 @@
     height: 160px;
     display: block;
     float: left;
-    background-color: burlywood;
     position: relative;
 }
 
@@ -49,7 +48,6 @@
     height: 100px;
     margin-top: 10px;
     display: block;
-    background-color: chocolate;
 }
 
 .food-element .comment-bd .tag-group .tag {
@@ -66,6 +64,24 @@
     margin-right: 6px;
     margin-bottom: 4px;
     border-radius: 6px;
+}
+
+.food-element .comment-bd .tag-group .tag[active] {
+    background-color: #ebaa2c;   
+    color: #fff;
+}
+
+.food-element .comment-bd .tag-group .input-tag {
+    width: 94px;
+    height: 20px;
+    display: block;
+    float: left;
+    background-color: #fff;
+    padding: 2px 5px;
+    border-radius: 6px;
+    margin-left: 0px;
+    margin-top: 0px;
+    border-color: #fff;
 }
 
 /* 点赞 */
@@ -88,4 +104,9 @@
     font-weight: 900;
     font-size: 18px;
     line-height: 26px;
+}
+
+.food-element .comment-bd .like-group i[active] {
+    background-color: #ebaa2c;   
+    color: #fff;
 }
