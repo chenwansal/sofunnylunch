@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SplitDateStr } from "../Util/DateHelper";
+import { SplitDateToMMDD, SplitDateToYYYYMMDD } from "../Util/DateHelper";
 import { FoodGo } from "./Assets/FoodGo";
 
 export type CommentModel = {
@@ -35,9 +35,6 @@ export class HomeMain {
 
         // 移除预置
         RemovePreset();
-
-        // 关闭评论
-        ShowComment(false);
 
         // 初始化评论
         InitComment();
@@ -81,6 +78,8 @@ function GetMenu(): void {
 
         let menuListEle = document.getElementById("MenuList");
 
+        let tags = ["主菜好吃", "主菜难吃", "肉太老", "饭馊了", "菜馊了", "太咸", "太辣", "饭不熟", "配菜太少"];
+
         for (let i = 0; i < data.foodArr.length; i += 1) {
             let food = data.foodArr[i];
             if (!food.name || food.name === "") {
@@ -89,8 +88,9 @@ function GetMenu(): void {
             let foodGo = new FoodGo();
             foodGo.Inject(commentModel);
             foodGo.Init(menuListEle, food.id, food.name, "");
-            foodGo.AddTag("好不好吃");
-            foodGo.AddTag("难吃");
+            for (let j = 0; j < tags.length; j += 1) {
+                foodGo.AddTag(tags[j]);
+            }
             foodGo.OnCleanAllTag = CleanAllTag;
         }
 
@@ -123,10 +123,9 @@ function CleanAllTag() {
 }
 
 function SetMenuDate(dateStr: string): void {
-    dateStr = SplitDateStr(dateStr);
-    let title = document.getElementById("MainTitle");
-    let h1: HTMLElement = title.firstElementChild as HTMLElement;
-    h1.innerText = dateStr + " 午餐菜单";
+    dateStr = SplitDateToMMDD(dateStr);
+    let todayMenuNav = document.getElementById("TodayMenuNav");
+    todayMenuNav.innerText = dateStr + " 菜单";
 }
 
 // ==== 评论相关 ====
@@ -136,78 +135,15 @@ let emptyHeartSrc = "./EmptyHeart.png";
 
 function InitComment(): void {
 
-    // STAR
-    let starGroup = document.getElementById("CommentStarGroup");
-    for (let i = 0; i < 5; i += 1) {
-        let starImg = document.createElement("img");
-        starImg.src = redHeartSrc;
-        starImg.setAttribute("star", i.toString());
-        starArr.push(starImg);
-        starGroup.appendChild(starImg);
-        starImg.onclick = (e) => {
-            let j = i;
-            SetCommentStar(j);
-        };
-    }
-
     // SUBMIT
-    let submitComment = document.getElementById("SubComment");
+    let submitComment = document.getElementById("SubmitComment");
     submitComment.onclick = (e) => {
         SubmitComment();
     };
 
-    // CLOSE
-    let closeCommentBtn = document.getElementById("CloseComment");
-    closeCommentBtn.onclick = (e) => {
-        ShowComment(false);
-    };
-
-}
-
-function SetCommentStar(score: number): void {
-    for (let i = 0; i < starArr.length; i += 1) {
-        let starImg = starArr[i];
-        if (i <= score) {
-            starImg.src = redHeartSrc;
-        } else {
-            starImg.src = emptyHeartSrc;
-        }
-    }
-
-    commentModel.star = score;
-
-}
-
-function ShowComment(isShow: boolean): void {
-    let popupMask = document.getElementById("PopupMask");
-    let commentBd = document.getElementById("PopupComment");
-    if (isShow) {
-        popupMask.style.display = "block";
-        commentBd.style.display = "block";
-    } else {
-        popupMask.style.display = "none";
-        commentBd.style.display = "none";
-    }
-}
-
-function PopupComment(foodId: number, foodName: string): void {
-
-    let title = document.getElementById("CommentTitle");
-    title.innerText = "评价: " + foodName;
-
-    commentModel.foodId = foodId;
-
 }
 
 function SubmitComment(): void {
-
-    let content = document.getElementById("CommentContent") as HTMLTextAreaElement;
-    commentModel.content = content.value;
-    console.assert(content);
-
-    let commenter = document.getElementById("Commenter") as HTMLInputElement;
-    commentModel.commenter = commenter.value;
-    console.assert(commenter);
 
     axios.post("/Comment", {
         data: commentModel

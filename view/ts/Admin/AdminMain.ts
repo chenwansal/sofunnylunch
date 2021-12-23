@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GetDateStr, SplitDateStr } from "../Util/DateHelper";
+import { GetDateStr, SplitDateToYYYYMMDD } from "../Util/DateHelper";
 
 export class AdminMain {
 

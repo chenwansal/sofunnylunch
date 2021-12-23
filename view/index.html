@@ -15,42 +15,7 @@
 
 <body id="Home">
 
-    <div id="PopupMask" class="popup-mask">
-
-    </div>
-
     <div id="Body" class="body">
-
-        <!-- 评价弹窗 -->
-        <div id="PopupComment" class="popup-comment">
-            <h1 id="CommentTitle" class="text-center">红烧鱼</h1>
-            <div class="comment-bd">
-                <div id="CommentStarGroup" class="comment-star-group">
-                    <label for="">评分：</label>
-                    <!-- <img star="1" src="./Heart.png" alt="">
-                    <img star="2" src="./Heart.png" alt="">
-                    <img star="3" src="./Heart.png" alt="">
-                    <img star="4" src="./Heart.png" alt="">
-                    <img star="5" src="./Heart.png" alt=""> -->
-                </div>
-                <div class="comment-content">
-                    <label for="">留言:</label>
-                    <div>
-                        <textarea id="CommentContent" name="" cols="60" rows="4"
-                            placeholder="建议具体地评价: 太咸、太辣、主菜太少、饭馊了 / 鸡腿好吃&#10;不建议含糊地评价: 太难吃了!"></textarea>
-                    </div>
-                </div>
-                <div class="mt20">
-                    <label for="">留言者:</label>
-                    <input id="Commenter" type="text" placeholder="(选填)">
-                </div>
-                <div id="CommentButtonGroup" class="comment-button-group">
-                    <input id="SubComment" class="sub-button" type="button" value="提交">
-                    <input id="CloseComment" class="sub-button" type="button" value="关闭">
-                </div>
-            </div>
-
-        </div>
 
         <!-- 标题 -->
         <div id="Nav">
@@ -60,11 +25,11 @@
         </div>
 
         <div id="MainTitle" class="main-title">
-
-            <h3 class="text-center">
-                2000-01-01 午餐菜单
-            </h3>
-
+            <div class="title-nav-group">
+                <i id="TodayMenuNav">
+                    12-23菜品评价
+                </i>
+            </div>
         </div>
 
         <!-- 今日菜单 -->
@@ -134,6 +99,10 @@
 
             </div>
 
+        </div>
+
+        <div class="comment-button-group">
+            <input id="SubmitComment" type="button" value="提交">
         </div>
 
         <footer class="text-center">

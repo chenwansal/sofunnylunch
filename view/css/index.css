@@ -11,9 +11,29 @@
 /* BODY */
 .body {
     width: 540px;
-    margin: 0 auto;
-    border: 2px solid #CC0000;
+    margin: 20px auto;
     position: relative;
+}
+
+.main-title {
+    width: 100%;
+    height: 50px;
+    display: block;
+    margin-top: 20px;
+}
+
+.main-title .title-nav-group i {
+    width: 160px;
+    height: 40px;
+    padding: 5px;
+    display: block;
+    float: left;
+    line-height: 40px;
+    text-align: center;
+    background-color: #fcde64;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: 900;
 }
 
 /* MENU */
@@ -32,43 +52,26 @@
     margin-left: 20px;
 }
 
-/* POPUP COMMENT */
-.popup-mask {
+/* COMMENT BUTTON */
+.comment-button-group {
     width: 100%;
-    height: 768px;
+}
+
+.comment-button-group input {
+    width: 180px;
+    height: 60px;
+    font-size: 32px;
+    font-weight: 900;
+    background-color: #fff08a;
+    border: 0px;
+    border-radius: 8px;
+    line-height: 50px;
     display: block;
-    background-color: rgb(50, 50, 50);
-    position: absolute;
-    z-index: 5;
+    margin: 20px auto;
+    box-shadow: -2px 4px #eebe64;
+    cursor: pointer;
 }
 
-.popup-comment {
-    width: 540px;
-    height: 500px;
-    display: block;
-    background-color: #fff;
-    position: absolute;
-    top: 50px;
-    z-index: 6;
+footer {
+    margin-top: 30px;
 }
-
-.popup-comment .comment-bd {
-    margin-left: 50px;
-}
-
-.popup-comment .comment-star-group img {
-    margin-right: 15px;
-}
-
-.popup-comment .comment-content {
-    margin-top: 20px;
-}
-
-.popup-comment .comment-button-group {
-    margin-top: 20px;
-}
-
-.popup-comment .comment-button-group input {
-    margin-right: 10px;
-}
-
