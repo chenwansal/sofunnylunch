@@ -6,10 +6,19 @@ export function SplitDateToYYYYMMDD(dateStr: string): string {
     return yyyy + "-" + mm + "-" + dd;
 }
 
-export function SplitDateToMMDD(dateStr: string) : string {
-    let mm = dateStr.substring(4,6);
-    let dd = dateStr.substring(6,8);
+export function SplitDateToMMDD(dateStr: string): string {
+    let mm = dateStr.substring(4, 6);
+    let dd = dateStr.substring(6, 8);
     return mm + "-" + dd;
+}
+
+export function GetMMDD() {
+    let date = new Date();
+    let m = date.getMonth() + 1;
+    let d = date.getDate();
+    let monthStr = m < 10 ? "0" + m : m;
+    let dayStr = d < 10 ? "0" + d : d;
+    return "" + monthStr + "-" + dayStr;
 }
 
 export function GetDateStr(date: Date): string {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SplitDateToMMDD, SplitDateToYYYYMMDD } from "../Util/DateHelper";
+import { GetMMDD, SplitDateToMMDD, SplitDateToYYYYMMDD } from "../Util/DateHelper";
 import { FoodGo } from "./Assets/FoodGo";
 
 export type CommentModel = {
@@ -25,6 +25,15 @@ export class HomeMain {
         if (!home) {
             return;
         }
+
+        // 本地信息
+        let dateStr = GetMMDD();
+        let todayMenuNav = document.getElementById("TodayMenuNav");
+        todayMenuNav.innerText = dateStr + " 菜单";
+
+        NoticeNoMenu(true);
+
+        // 获取菜单
         GetMenu();
 
         // 关闭用餐排队
@@ -74,7 +83,9 @@ function GetMenu(): void {
 
         let data: MenuDto = res.data;
 
-        SetMenuDate(data.yyyymmdd);
+        let dateStr = SplitDateToMMDD(data.yyyymmdd);
+        let todayMenuNav = document.getElementById("TodayMenuNav");
+        todayMenuNav.innerText = dateStr + " 菜单";
 
         let menuListEle = document.getElementById("MenuList");
 
@@ -94,8 +105,19 @@ function GetMenu(): void {
             foodGo.OnCleanAllTag = CleanAllTag;
         }
 
+        // 关闭本地
+        NoticeNoMenu(false);
+
     });
 
+}
+
+function NoticeNoMenu(isNotice: boolean) {
+    let NoMenuNotice = document.getElementById("NoMenuNotice");
+    NoMenuNotice.style.display = isNotice ? "block" : "none";
+
+    let submitCommentBtn = document.getElementById("SubmitComment");
+    submitCommentBtn.style.display = isNotice ? "none" : "block";
 }
 
 function CleanAllTag() {
@@ -122,17 +144,7 @@ function CleanAllTag() {
 
 }
 
-function SetMenuDate(dateStr: string): void {
-    dateStr = SplitDateToMMDD(dateStr);
-    let todayMenuNav = document.getElementById("TodayMenuNav");
-    todayMenuNav.innerText = dateStr + " 菜单";
-}
-
 // ==== 评论相关 ====
-let starArr: HTMLImageElement[] = [];
-let redHeartSrc = "./Heart.png";
-let emptyHeartSrc = "./EmptyHeart.png";
-
 function InitComment(): void {
 
     // SUBMIT

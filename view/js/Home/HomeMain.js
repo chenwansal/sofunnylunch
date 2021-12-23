@@ -17,6 +17,12 @@ class HomeMain {
         if (!home) {
             return;
         }
+        // 本地信息
+        let dateStr = DateHelper_1.GetMMDD();
+        let todayMenuNav = document.getElementById("TodayMenuNav");
+        todayMenuNav.innerText = dateStr + " 菜单";
+        NoticeNoMenu(true);
+        // 获取菜单
         GetMenu();
         // 关闭用餐排队
         let lunchOrder = document.getElementById("MainNotice");
@@ -42,7 +48,9 @@ function RemovePreset() {
 function GetMenu() {
     axios_1.default.post("/GetMenu").then(res => {
         let data = res.data;
-        SetMenuDate(data.yyyymmdd);
+        let dateStr = DateHelper_1.SplitDateToMMDD(data.yyyymmdd);
+        let todayMenuNav = document.getElementById("TodayMenuNav");
+        todayMenuNav.innerText = dateStr + " 菜单";
         let menuListEle = document.getElementById("MenuList");
         let tags = ["主菜好吃", "主菜难吃", "肉太老", "饭馊了", "菜馊了", "太咸", "太辣", "饭不熟", "配菜太少"];
         for (let i = 0; i < data.foodArr.length; i += 1) {
@@ -58,7 +66,15 @@ function GetMenu() {
             }
             foodGo.OnCleanAllTag = CleanAllTag;
         }
+        // 关闭本地
+        NoticeNoMenu(false);
     });
+}
+function NoticeNoMenu(isNotice) {
+    let NoMenuNotice = document.getElementById("NoMenuNotice");
+    NoMenuNotice.style.display = isNotice ? "block" : "none";
+    let submitCommentBtn = document.getElementById("SubmitComment");
+    submitCommentBtn.style.display = isNotice ? "none" : "block";
 }
 function CleanAllTag() {
     commentModel.tags = [];
@@ -78,15 +94,7 @@ function CleanAllTag() {
         unlike.removeAttribute("active");
     }
 }
-function SetMenuDate(dateStr) {
-    dateStr = DateHelper_1.SplitDateToMMDD(dateStr);
-    let todayMenuNav = document.getElementById("TodayMenuNav");
-    todayMenuNav.innerText = dateStr + " 菜单";
-}
 // ==== 评论相关 ====
-let starArr = [];
-let redHeartSrc = "./Heart.png";
-let emptyHeartSrc = "./EmptyHeart.png";
 function InitComment() {
     // SUBMIT
     let submitComment = document.getElementById("SubmitComment");
