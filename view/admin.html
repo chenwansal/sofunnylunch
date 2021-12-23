@@ -7,35 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>午餐后端</title>
     <link rel="stylesheet" href="css/common.css">
-    <style>
-
-        input {
-            height: 30px;
-            margin-left: 10px;
-            padding: 5px;
-        }
-
-        .admin {
-            width: 100%;
-            display: block;
-            position: relative;
-        }
-
-        .nav {
-            width: 200px;
-            display: block;
-            float: left;
-            background-color: #eee;
-        }
-
-        .main-body {
-            width: 1000px;
-            float: left;
-            padding-left: 30px;
-            padding-top: 20px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="css/admin.css">
 
 </head>
 
@@ -49,7 +21,7 @@
 
         <div class="button-group center mt20">
             <div class="mt20">
-                <a id="NavAddMenu" class="color-link">录入菜品</a>
+                <a id="NavAddMenu" class="color-link">菜单录入</a>
             </div>
             <div class="mt20">
                 <a id="NavStatistics" class="color-link">统计</a>
@@ -58,42 +30,42 @@
 
     </div>
 
-    <div id="AddMenuBody" class="main-body">
+    <div id="AddMenuBody" class="add-menu-body main-body">
         <h2>
             菜单录入
         </h2>
 
-        <div>
+        <div class="date_input">
             <label for="">选择日期</label><input id="MenuDate" type="date">
         </div>
 
         <div>
-            <div>
+            <div class="food_input">
                 <label for="">A餐</label><input id="Menu_A" type="text" placeholder="输入菜名">
             </div>
 
-            <div>
+            <div class="food_input">
                 <label for="">B餐</label><input id="Menu_B" type="text" placeholder="输入菜名">
             </div>
 
-            <div>
+            <div class="food_input">
                 <label for="">C餐</label><input id="Menu_C" type="text" placeholder="输入菜名">
             </div>
 
-            <div>
+            <div class="food_input">
                 <label for="">D餐</label><input id="Menu_D" type="text" placeholder="输入菜名">
             </div>
 
-            <div>
+            <div class="food_input">
                 <label for="">E餐</label><input id="Menu_E" type="text" placeholder="输入菜名">
             </div>
 
-            <div>
+            <div class="food_input">
                 <label for="">F餐</label><input id="Menu_F" type="text" placeholder="输入菜名">
             </div>
         </div>
 
-        <div>
+        <div class="submit_input">
             <input id="SubmitMenuButton" type="button" value="提交">
         </div>
     </div>

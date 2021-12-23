@@ -1,0 +1,72 @@
+/* COMMON */
+.main-body {
+    width: 1000px;
+    float: left;
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+.admin {
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+/* NAV */
+.nav {
+    width: 200px;
+    display: block;
+    float: left;
+    background-color: #eee;
+}
+
+.nav .button-group div a {
+    color: black;
+}
+
+.nav .button-group div a[active] {
+    color: #cc0000;
+}
+
+/* ADD MENU */
+.add-menu-body .date_input {
+    display: block;
+    margin-top: 26px;
+}
+
+.add-menu-body .date_input input {
+    width: 140px;
+    height: 30px;
+    display: block;
+}
+
+.add-menu-body .food_input {
+    margin-top: 26px;
+}
+
+.add-menu-body .food_input label {
+    padding-bottom: 5px;
+}
+
+.add-menu-body .food_input input {
+    width: 200px;
+    height: 30px;
+    display: block;
+}
+
+.add-menu-body .submit_input {
+    margin-top: 26px;
+}
+
+.add-menu-body .submit_input input {
+    width: 160px;
+    height: 50px;
+    color: black;
+    font-size: 30px;
+    line-height: 50px;
+    font-weight: 900;
+    background-color: #fff08a;
+    border: 0px;
+    box-shadow: -2px 4px #eebe64;
+    cursor: pointer;
+}

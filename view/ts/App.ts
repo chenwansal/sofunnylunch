@@ -3,9 +3,9 @@ import { HomeMain } from "./Home/HomeMain";
 
 function main() {
 
-    AdminMain.Main();
+    AdminMain();
 
-    HomeMain.Main();
+    HomeMain();
 
 }
 

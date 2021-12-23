@@ -11,29 +11,27 @@ let commentModel = {
     content: "",
     commenter: "",
 };
-class HomeMain {
-    static Main() {
-        let home = document.getElementById("Home");
-        if (!home) {
-            return;
-        }
-        // 本地信息
-        let dateStr = DateHelper_1.GetMMDD();
-        let todayMenuNav = document.getElementById("TodayMenuNav");
-        todayMenuNav.innerText = dateStr + " 菜单";
-        NoticeNoMenu(true);
-        // 获取菜单
-        GetMenu();
-        // 关闭用餐排队
-        let lunchOrder = document.getElementById("MainNotice");
-        if (lunchOrder) {
-            lunchOrder.style.display = "none";
-        }
-        // 移除预置
-        RemovePreset();
-        // 初始化评论
-        InitComment();
+function HomeMain() {
+    let home = document.getElementById("Home");
+    if (!home) {
+        return;
     }
+    // 本地信息
+    let dateStr = DateHelper_1.GetMMDD();
+    let todayMenuNav = document.getElementById("TodayMenuNav");
+    todayMenuNav.innerText = dateStr + " 菜单";
+    NoticeNoMenu(true);
+    // 获取菜单
+    GetMenu();
+    // 关闭用餐排队
+    let lunchOrder = document.getElementById("MainNotice");
+    if (lunchOrder) {
+        lunchOrder.style.display = "none";
+    }
+    // 移除预置
+    RemovePreset();
+    // 初始化评论
+    InitComment();
 }
 exports.HomeMain = HomeMain;
 function RemovePreset() {

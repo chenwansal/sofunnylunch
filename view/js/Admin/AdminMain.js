@@ -3,26 +3,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminMain = void 0;
 const axios_1 = require("axios");
 const DateHelper_1 = require("../Util/DateHelper");
-class AdminMain {
-    static Main() {
-        let admin = document.getElementById("Admin");
-        if (!admin) {
-            return;
-        }
-        ListenNavSwitch();
-        ListenSubmitMenu();
+function AdminMain() {
+    let admin = document.getElementById("Admin");
+    if (!admin) {
+        return;
     }
+    InitNav();
+    InitSubmitMenu();
 }
 exports.AdminMain = AdminMain;
 // NAV SWITCH
-function ListenNavSwitch() {
+function InitNav() {
     let navOpenAddMenuBody = document.getElementById("NavAddMenu");
+    let navOpenStatisticsBody = document.getElementById("NavStatistics");
+    navOpenAddMenuBody.setAttribute("active", "1");
     navOpenAddMenuBody.onclick = (e) => {
+        navOpenStatisticsBody.removeAttribute("active");
+        navOpenAddMenuBody.setAttribute("active", "1");
         OpenAddMenuBody(true);
         OpenStatisticsBocy(false);
     };
-    let navOpenStatisticsBody = document.getElementById("NavStatistics");
     navOpenStatisticsBody.onclick = (e) => {
+        navOpenStatisticsBody.setAttribute("active", "1");
+        navOpenAddMenuBody.removeAttribute("active");
         OpenAddMenuBody(false);
         OpenStatisticsBocy(true);
     };
@@ -36,16 +39,17 @@ function OpenStatisticsBocy(isOpen) {
     body.style.display = isOpen ? "block" : "none";
 }
 // ADMIN
-function ListenSubmitMenu() {
+function InitSubmitMenu() {
+    let date = document.getElementById("MenuDate");
+    let a = document.getElementById("Menu_A");
+    let b = document.getElementById("Menu_B");
+    let c = document.getElementById("Menu_C");
+    let d = document.getElementById("Menu_D");
+    let e = document.getElementById("Menu_E");
+    let f = document.getElementById("Menu_F");
+    date.valueAsDate = new Date();
     let submitButton = document.getElementById("SubmitMenuButton");
     submitButton.onclick = ev => {
-        let date = document.getElementById("MenuDate");
-        let a = document.getElementById("Menu_A");
-        let b = document.getElementById("Menu_B");
-        let c = document.getElementById("Menu_C");
-        let d = document.getElementById("Menu_D");
-        let e = document.getElementById("Menu_E");
-        let f = document.getElementById("Menu_F");
         let newMenu = {
             date: DateHelper_1.GetDateStr(date.valueAsDate),
             foodArr: [a.value, b.value, c.value, d.value, e.value, f.value]

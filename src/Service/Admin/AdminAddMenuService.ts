@@ -40,6 +40,8 @@ export class AdminAddMenuService {
             menu.foodIdArr = foodIdArr;
             this.menuDao.AddMenu(menu);
 
+            console.log("收到录入菜单: ", newMenu);
+
         });
 
     }

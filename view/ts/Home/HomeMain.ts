@@ -18,37 +18,33 @@ let commentModel: CommentModel = {
     commenter: "",
 }
 
-export class HomeMain {
-
-    static Main() {
-        let home = document.getElementById("Home");
-        if (!home) {
-            return;
-        }
-
-        // 本地信息
-        let dateStr = GetMMDD();
-        let todayMenuNav = document.getElementById("TodayMenuNav");
-        todayMenuNav.innerText = dateStr + " 菜单";
-
-        NoticeNoMenu(true);
-
-        // 获取菜单
-        GetMenu();
-
-        // 关闭用餐排队
-        let lunchOrder = document.getElementById("MainNotice");
-        if (lunchOrder) {
-            lunchOrder.style.display = "none";
-        }
-
-        // 移除预置
-        RemovePreset();
-
-        // 初始化评论
-        InitComment();
-
+export function HomeMain() {
+    let home = document.getElementById("Home");
+    if (!home) {
+        return;
     }
+
+    // 本地信息
+    let dateStr = GetMMDD();
+    let todayMenuNav = document.getElementById("TodayMenuNav");
+    todayMenuNav.innerText = dateStr + " 菜单";
+
+    NoticeNoMenu(true);
+
+    // 获取菜单
+    GetMenu();
+
+    // 关闭用餐排队
+    let lunchOrder = document.getElementById("MainNotice");
+    if (lunchOrder) {
+        lunchOrder.style.display = "none";
+    }
+
+    // 移除预置
+    RemovePreset();
+
+    // 初始化评论
+    InitComment();
 
 }
 
