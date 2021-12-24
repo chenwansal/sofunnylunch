@@ -9,7 +9,7 @@ class AdminAddMenuService {
         this.foodDao = foodDao;
         this.http = http;
     }
-    Init() {
+    Listening() {
         this.http.PostListen("/AddMenu", (req, res) => {
             let foodIdArr = [];
             let newMenu = req.body.data;

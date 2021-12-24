@@ -10,6 +10,7 @@ import { AdminAddMenuService } from "./Service/Admin/AdminAddMenuService";
 import { JsonVisitor } from "./DB/JsonVisitor";
 import { IdRecordTable } from "./DB/Table/IdRecordTable";
 import { HomeCommentService } from "./Service/Home/Service/HomeCommentService";
+import { CommentDao } from "./DB/Dao/Comment/CommentDao";
 
 class App {
 
@@ -24,6 +25,7 @@ class App {
             idTable = new IdRecordTable();
             idTable.foodId = 0;
             idTable.menuId = 0;
+            idTable.commentId = 0;
             JsonVisitor.WriteToFile(PathHelper.GetIdRecordFilePath(), idTable);
             console.log("创建表ID记录文件");
         } else {
@@ -31,6 +33,7 @@ class App {
         }
         FoodDao.currentId = idTable.foodId;
         MenuDao.currentId = idTable.menuId;
+        CommentDao.currentId = idTable.commentId;
         console.log("初始化表ID");
 
         // ==== CTOR ====
@@ -40,6 +43,7 @@ class App {
         // CTOR DAO
         let menuDao: MenuDao = new MenuDao();
         let foodDao: FoodDao = new FoodDao();
+        let commentDao: CommentDao = new CommentDao();
 
         // CTOR CAO
         let homeMenuCao: HomeMenuCao = new HomeMenuCao();
@@ -57,7 +61,7 @@ class App {
         // INJECT HOME SERVICE
         homeService.Inject(http);
         homeLoadMenuService.Inject(foodDao, menuDao, homeMenuCao, http);
-        homeCommentService.Inject(http);
+        homeCommentService.Inject(http, commentDao);
 
         // INJECT ADMIN SERVICE
         adminService.Inject(http);
@@ -71,6 +75,7 @@ class App {
         // INIT DAO
         menuDao.Init();
         foodDao.Init();
+        commentDao.Init();
 
         // INIT HOME SERVICE
         homeService.Init();
@@ -78,8 +83,8 @@ class App {
         homeCommentService.Init();
 
         // INIT ADMIN SERVICE
-        adminService.Init();
-        adminAddMenuService.Init();
+        adminService.Listening();
+        adminAddMenuService.Listening();
 
         // ==== RUN ====
         http.Start();

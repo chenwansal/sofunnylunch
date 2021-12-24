@@ -19,7 +19,7 @@ class FoodDao {
         let res = [];
         for (let i = 0; i < files.length; i += 1) {
             let file = files[i];
-            let food = JsonVisitor_1.JsonVisitor.ReadJsonFromFile(dir + "/" + file);
+            let food = JsonVisitor_1.JsonVisitor.ReadJsonFromFile(dir + file);
             res.push(food);
         }
         return res;

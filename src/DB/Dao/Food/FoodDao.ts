@@ -25,7 +25,7 @@ export class FoodDao {
         let res: FoodTable[] = [];
         for (let i = 0; i < files.length; i += 1) {
             let file = files[i];
-            let food = JsonVisitor.ReadJsonFromFile<FoodTable>(dir + "/" + file);
+            let food = JsonVisitor.ReadJsonFromFile<FoodTable>(dir + file);
             res.push(food);
         }
         return res;

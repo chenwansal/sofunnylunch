@@ -17,7 +17,7 @@ export class AdminAddMenuService {
         this.http = http;
     }
 
-    Init() {
+    Listening() {
 
         type NewMenu = {
             date: string,

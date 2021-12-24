@@ -46,13 +46,15 @@ class FoodGo {
             if (this.foodId != this.commentModel.foodId) {
                 this.OnCleanAllTag();
             }
-            this.commentModel.star = 5;
-            this.commentModel.foodId = this.foodId;
             console.log(likeBtn.getAttribute("active"));
             if (likeBtn.getAttribute("active")) {
+                this.commentModel.star = -1;
+                this.commentModel.foodId = -1;
                 likeBtn.removeAttribute("active");
             }
             else {
+                this.commentModel.star = 5;
+                this.commentModel.foodId = this.foodId;
                 likeBtn.setAttribute("active", "1");
                 unlikeBtn.removeAttribute("active");
             }
@@ -65,12 +67,14 @@ class FoodGo {
             if (this.foodId != this.commentModel.foodId) {
                 this.OnCleanAllTag();
             }
-            this.commentModel.foodId = this.foodId;
-            this.commentModel.star = 0;
             if (unlikeBtn.getAttribute("active")) {
+                this.commentModel.star = -1;
+                this.commentModel.foodId = -1;
                 unlikeBtn.removeAttribute("active");
             }
             else {
+                this.commentModel.star = 0;
+                this.commentModel.foodId = this.foodId;
                 unlikeBtn.setAttribute("active", "1");
                 likeBtn.removeAttribute("active");
             }
@@ -106,3 +110,4 @@ class FoodGo {
     }
 }
 exports.FoodGo = FoodGo;
+//# sourceMappingURL=FoodGo.js.map

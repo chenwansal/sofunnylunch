@@ -12,6 +12,7 @@ const AdminAddMenuService_1 = require("./Service/Admin/AdminAddMenuService");
 const JsonVisitor_1 = require("./DB/JsonVisitor");
 const IdRecordTable_1 = require("./DB/Table/IdRecordTable");
 const HomeCommentService_1 = require("./Service/Home/Service/HomeCommentService");
+const CommentDao_1 = require("./DB/Dao/Comment/CommentDao");
 class App {
     static main() {
         // 初始化路径
@@ -22,6 +23,7 @@ class App {
             idTable = new IdRecordTable_1.IdRecordTable();
             idTable.foodId = 0;
             idTable.menuId = 0;
+            idTable.commentId = 0;
             JsonVisitor_1.JsonVisitor.WriteToFile(PathHelper_1.PathHelper.GetIdRecordFilePath(), idTable);
             console.log("创建表ID记录文件");
         }
@@ -30,6 +32,7 @@ class App {
         }
         FoodDao_1.FoodDao.currentId = idTable.foodId;
         MenuDao_1.MenuDao.currentId = idTable.menuId;
+        CommentDao_1.CommentDao.currentId = idTable.commentId;
         console.log("初始化表ID");
         // ==== CTOR ====
         // CTOR HTTP
@@ -37,6 +40,7 @@ class App {
         // CTOR DAO
         let menuDao = new MenuDao_1.MenuDao();
         let foodDao = new FoodDao_1.FoodDao();
+        let commentDao = new CommentDao_1.CommentDao();
         // CTOR CAO
         let homeMenuCao = new HomeMenuCao_1.HomeMenuCao();
         // CTOR HOME SERVICE
@@ -50,7 +54,7 @@ class App {
         // INJECT HOME SERVICE
         homeService.Inject(http);
         homeLoadMenuService.Inject(foodDao, menuDao, homeMenuCao, http);
-        homeCommentService.Inject(http);
+        homeCommentService.Inject(http, commentDao);
         // INJECT ADMIN SERVICE
         adminService.Inject(http);
         adminAddMenuService.Inject(menuDao, foodDao, http);
@@ -61,13 +65,14 @@ class App {
         // INIT DAO
         menuDao.Init();
         foodDao.Init();
+        commentDao.Init();
         // INIT HOME SERVICE
         homeService.Init();
         homeLoadMenuService.Init();
         homeCommentService.Init();
         // INIT ADMIN SERVICE
-        adminService.Init();
-        adminAddMenuService.Init();
+        adminService.Listening();
+        adminAddMenuService.Listening();
         // ==== RUN ====
         http.Start();
     }

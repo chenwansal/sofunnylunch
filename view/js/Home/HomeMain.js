@@ -5,8 +5,8 @@ const axios_1 = require("axios");
 const DateHelper_1 = require("../Util/DateHelper");
 const FoodGo_1 = require("./Assets/FoodGo");
 let commentModel = {
-    foodId: 0,
-    star: 1,
+    foodId: -1,
+    star: -1,
     tags: [],
     content: "",
     commenter: "",
@@ -58,7 +58,7 @@ function GetMenu() {
             }
             let foodGo = new FoodGo_1.FoodGo();
             foodGo.Inject(commentModel);
-            foodGo.Init(menuListEle, food.id, food.name, "");
+            foodGo.Init(menuListEle, food.id, food.name, "./img/addicon.png");
             for (let j = 0; j < tags.length; j += 1) {
                 foodGo.AddTag(tags[j]);
             }
@@ -101,11 +101,29 @@ function InitComment() {
     };
 }
 function SubmitComment() {
+    if (commentModel.foodId == -1 || commentModel.star == -1 || (commentModel.tags.length == 0 && !commentModel.content)) {
+        alert("评论内容不完整");
+        return;
+    }
     axios_1.default.post("/Comment", {
         data: commentModel
     }).then(res => {
-        console.log(res.data);
+        let data = res.data;
+        if (!data) {
+            return;
+        }
+        let state = data.state;
+        if (state == 1) {
+            alert("评论成功");
+        }
+        else if (state == -1) {
+            alert("评论失败, 内容不完整");
+        }
+        else if (state == -2) {
+            alert("当日已评论, 请勿重复提交");
+        }
     }).catch(err => {
-        console.error(err);
+        alert(err.toString());
     });
 }
+//# sourceMappingURL=HomeMain.js.map

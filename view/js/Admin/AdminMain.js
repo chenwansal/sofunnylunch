@@ -64,3 +64,4 @@ function InitSubmitMenu() {
         });
     };
 }
+//# sourceMappingURL=AdminMain.js.map

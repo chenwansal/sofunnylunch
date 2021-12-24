@@ -4,6 +4,7 @@ exports.IdRecordDao = void 0;
 const PathHelper_1 = require("../../../Util/PathHelper");
 const JsonVisitor_1 = require("../../JsonVisitor");
 const IdRecordTable_1 = require("../../Table/IdRecordTable");
+const CommentDao_1 = require("../Comment/CommentDao");
 const FoodDao_1 = require("../Food/FoodDao");
 const MenuDao_1 = require("../Menu/MenuDao");
 class IdRecordDao {
@@ -13,6 +14,7 @@ class IdRecordDao {
         }
         this.tempTable.menuId = MenuDao_1.MenuDao.currentId;
         this.tempTable.foodId = FoodDao_1.FoodDao.currentId;
+        this.tempTable.commentId = CommentDao_1.CommentDao.currentId;
         JsonVisitor_1.JsonVisitor.WriteToFile(PathHelper_1.PathHelper.GetIdRecordFilePath(), this.tempTable);
     }
 }

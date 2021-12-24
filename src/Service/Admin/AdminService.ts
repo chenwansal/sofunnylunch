@@ -11,9 +11,22 @@ export class AdminService {
         this.http = http;
     }
 
-    Init(): void {
+    Listening(): void {
         this.http.GetListen("/admin", (req, res) => {
-            res.render("admin.html");
+            let query = req.query;
+            if (!query) {
+                res.status(500).end();
+                return;
+            }
+
+            let user = query.user;
+            let pwd = query.pwd;
+            if (user === "cw" && pwd === "123") {
+                res.render("admin.html");
+            } else {
+                res.status(500).end();
+            }
+
         });
     }
 }
