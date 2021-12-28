@@ -70,3 +70,32 @@
     box-shadow: -2px 4px #eebe64;
     cursor: pointer;
 }
+
+/* STATISTICS */
+.statistics-body .food-group {
+    width: 100%;
+    display: block;
+    margin-top: 50px;
+}
+
+.statistics-body .one-food {
+    margin-top: 20px;
+}
+
+.statistics-body .food-name {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.statistics-body .star[star='0'] {
+    color: green;
+}
+
+.statistics-body .star[star='5'] {
+    color: #cc0000;
+}
+
+.statistics-body .one-comment {
+    height: 20px;
+    margin-top: 5px;
+}

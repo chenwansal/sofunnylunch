@@ -23,6 +23,13 @@ class CommentDao {
         }
         return arr;
     }
+    GetAllComment() {
+        if (this.arr) {
+            return this.arr;
+        }
+        this.arr = this.LoadAllComment();
+        return this.arr;
+    }
     HasCommented(ip, foodId, yymmdd) {
         let index = this.arr.findIndex(value => value.ip == ip && value.foodId == foodId && value.yymmdd == yymmdd);
         if (index == -1) {

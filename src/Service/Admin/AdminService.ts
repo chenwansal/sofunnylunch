@@ -1,5 +1,6 @@
 import { HttpServer } from "jackwebutil";
 import { PathHelper } from "../../Util/PathHelper";
+import { RequestQueryHelper } from "../../Util/RequestQueryHelper";
 
 export class AdminService {
 
@@ -13,19 +14,14 @@ export class AdminService {
 
     Listening(): void {
         this.http.GetListen("/admin", (req, res) => {
-            let query = req.query;
-            if (!query) {
+
+            let isAdmin = RequestQueryHelper.IsAdministrator(req);
+            if (!isAdmin) {
                 res.status(500).end();
                 return;
             }
-
-            let user = query.user;
-            let pwd = query.pwd;
-            if (user === "cw" && pwd === "123") {
-                res.render("admin.html");
-            } else {
-                res.status(500).end();
-            }
+            
+            res.render("admin.html");
 
         });
     }

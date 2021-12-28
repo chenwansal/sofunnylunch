@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminService = void 0;
+const RequestQueryHelper_1 = require("../../Util/RequestQueryHelper");
 class AdminService {
     constructor() { }
     Inject(http) {
@@ -8,19 +9,12 @@ class AdminService {
     }
     Listening() {
         this.http.GetListen("/admin", (req, res) => {
-            let query = req.query;
-            if (!query) {
+            let isAdmin = RequestQueryHelper_1.RequestQueryHelper.IsAdministrator(req);
+            if (!isAdmin) {
                 res.status(500).end();
                 return;
             }
-            let user = query.user;
-            let pwd = query.pwd;
-            if (user === "cw" && pwd === "123") {
-                res.render("admin.html");
-            }
-            else {
-                res.status(500).end();
-            }
+            res.render("admin.html");
         });
     }
 }
