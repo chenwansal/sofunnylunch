@@ -16,6 +16,10 @@ export class MenuDao {
 
     Init(): void {
         this.allMenu = this.GetAllMenu();
+        this.ResetTodayMenu();
+    }
+
+    ResetTodayMenu(): void {
         this.todayMenu = this.GetTodayMenu();
     }
 

@@ -10,6 +10,9 @@ class MenuDao {
     constructor() { }
     Init() {
         this.allMenu = this.GetAllMenu();
+        this.ResetTodayMenu();
+    }
+    ResetTodayMenu() {
         this.todayMenu = this.GetTodayMenu();
     }
     GetTodayMenu() {

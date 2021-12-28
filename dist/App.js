@@ -13,6 +13,7 @@ const JsonVisitor_1 = require("./DB/JsonVisitor");
 const IdRecordTable_1 = require("./DB/Table/IdRecordTable");
 const HomeCommentService_1 = require("./Service/Home/Service/HomeCommentService");
 const CommentDao_1 = require("./DB/Dao/Comment/CommentDao");
+const HomeResetTodayMenuService_1 = require("./Service/Home/Service/HomeResetTodayMenuService");
 class App {
     static main() {
         // 初始化路径
@@ -47,6 +48,7 @@ class App {
         let homeService = new HomeService_1.HomeService();
         let homeLoadMenuService = new HomeLoadMenuService_1.HomeLoadMenuService();
         let homeCommentService = new HomeCommentService_1.HomeCommentService();
+        let homeResetTodayMenuService = new HomeResetTodayMenuService_1.HomeResetTodayMenuService();
         // CTOR ADMIN SERVICE
         let adminService = new AdminService_1.AdminService();
         let adminAddMenuService = new AdminAddMenuService_1.AdminAddMenuService();
@@ -55,6 +57,7 @@ class App {
         homeService.Inject(http);
         homeLoadMenuService.Inject(foodDao, menuDao, homeMenuCao, http);
         homeCommentService.Inject(http, commentDao);
+        homeResetTodayMenuService.Inject(menuDao);
         // INJECT ADMIN SERVICE
         adminService.Inject(http);
         adminAddMenuService.Inject(menuDao, foodDao, http);
@@ -70,6 +73,7 @@ class App {
         homeService.Init();
         homeLoadMenuService.Init();
         homeCommentService.Init();
+        homeResetTodayMenuService.Init();
         // INIT ADMIN SERVICE
         adminService.Listening();
         adminAddMenuService.Listening();

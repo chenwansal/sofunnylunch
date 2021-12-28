@@ -11,6 +11,7 @@ import { JsonVisitor } from "./DB/JsonVisitor";
 import { IdRecordTable } from "./DB/Table/IdRecordTable";
 import { HomeCommentService } from "./Service/Home/Service/HomeCommentService";
 import { CommentDao } from "./DB/Dao/Comment/CommentDao";
+import { HomeResetTodayMenuService } from "./Service/Home/Service/HomeResetTodayMenuService";
 
 class App {
 
@@ -52,6 +53,7 @@ class App {
         let homeService: HomeService = new HomeService();
         let homeLoadMenuService: HomeLoadMenuService = new HomeLoadMenuService();
         let homeCommentService: HomeCommentService = new HomeCommentService();
+        let homeResetTodayMenuService : HomeResetTodayMenuService = new HomeResetTodayMenuService();
 
         // CTOR ADMIN SERVICE
         let adminService: AdminService = new AdminService();
@@ -62,6 +64,7 @@ class App {
         homeService.Inject(http);
         homeLoadMenuService.Inject(foodDao, menuDao, homeMenuCao, http);
         homeCommentService.Inject(http, commentDao);
+        homeResetTodayMenuService.Inject(menuDao);
 
         // INJECT ADMIN SERVICE
         adminService.Inject(http);
@@ -81,6 +84,7 @@ class App {
         homeService.Init();
         homeLoadMenuService.Init();
         homeCommentService.Init();
+        homeResetTodayMenuService.Init();
 
         // INIT ADMIN SERVICE
         adminService.Listening();
