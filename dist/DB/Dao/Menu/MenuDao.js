@@ -13,6 +13,7 @@ class MenuDao {
         this.ResetTodayMenu();
     }
     ResetTodayMenu() {
+        this.todayMenu = null;
         this.todayMenu = this.GetTodayMenu();
     }
     GetTodayMenu() {

@@ -20,6 +20,7 @@ export class MenuDao {
     }
 
     ResetTodayMenu(): void {
+        this.todayMenu = null;
         this.todayMenu = this.GetTodayMenu();
     }
 
