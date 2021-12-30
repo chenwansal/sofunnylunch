@@ -14,6 +14,8 @@ import { CommentDao } from "./DB/Dao/Comment/CommentDao";
 import { HomeResetTodayMenuService } from "./Service/Home/Service/HomeResetTodayMenuService";
 import { AdminGetAllCommentService } from "./Service/Admin/AdminGetAllCommentService";
 
+const PORT = 9966;
+
 class App {
 
     static main() {
@@ -76,7 +78,7 @@ class App {
         // ==== INIT ====
         // INIT HTTP
         const viewPath: string = "/view/";
-        http.InitHttpView(9966, PathHelper.GetRootDir(), viewPath, viewPath);
+        http.InitHttpView(PORT, PathHelper.GetRootDir(), viewPath, viewPath);
 
         // INIT DAO
         menuDao.Init();

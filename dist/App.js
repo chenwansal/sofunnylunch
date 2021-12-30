@@ -15,6 +15,7 @@ const HomeCommentService_1 = require("./Service/Home/Service/HomeCommentService"
 const CommentDao_1 = require("./DB/Dao/Comment/CommentDao");
 const HomeResetTodayMenuService_1 = require("./Service/Home/Service/HomeResetTodayMenuService");
 const AdminGetAllCommentService_1 = require("./Service/Admin/AdminGetAllCommentService");
+const PORT = 9966;
 class App {
     static main() {
         // 初始化路径
@@ -67,7 +68,7 @@ class App {
         // ==== INIT ====
         // INIT HTTP
         const viewPath = "/view/";
-        http.InitHttpView(9966, PathHelper_1.PathHelper.GetRootDir(), viewPath, viewPath);
+        http.InitHttpView(PORT, PathHelper_1.PathHelper.GetRootDir(), viewPath, viewPath);
         // INIT DAO
         menuDao.Init();
         foodDao.Init();

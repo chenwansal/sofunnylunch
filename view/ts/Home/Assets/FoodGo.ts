@@ -62,6 +62,9 @@ export class FoodGo {
         let likeBtn = document.createElement("i");
         likeBtn.innerText = "好吃";
         likeBtn.className = "like";
+        let likeImg = document.createElement("img");
+        likeImg.src = "./img/like.png";
+        likeBtn.appendChild(likeImg);
         likeBtn.onclick = (e) => {
             if (this.foodId != this.commentModel.foodId) {
                 this.OnCleanAllTag();
@@ -83,6 +86,9 @@ export class FoodGo {
         let unlikeBtn = document.createElement("i");
         unlikeBtn.className = "unlike"
         unlikeBtn.innerText = "不好吃";
+        let unlikeImg = document.createElement("img");
+        unlikeImg.src = "./img/unlike.png";
+        unlikeBtn.appendChild(unlikeImg);
         unlikeBtn.onclick = (e) => {
             if (this.foodId != this.commentModel.foodId) {
                 this.OnCleanAllTag();
