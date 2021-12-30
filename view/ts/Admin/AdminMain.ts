@@ -137,7 +137,7 @@ function RenderAllComment() {
 
         let iName = document.createElement("i");
         iName.className = "food-name";
-        iName.innerText = "菜名: " + food.foodName + "  ";
+        iName.innerText = food.foodName + "  ";
         foodAvatar.appendChild(iName);
 
         let iGood = document.createElement("i");
@@ -164,7 +164,7 @@ function RenderAllComment() {
 
             let iDate = document.createElement("i");
             iDate.className = "data";
-            iDate.innerText = comm.yymmdd;
+            iDate.innerText = SplitDateToYYYYMMDD(comm.yymmdd);
             oneComm.appendChild(iDate);
 
             let iStarBD = document.createElement("i");
@@ -192,7 +192,7 @@ function RenderAllComment() {
             let iComm = document.createElement("i");
             let content = comm.content ? comm.content + " | " : "";
             for (let n = 0; n < comm.tags.length; n += 1) {
-                if (n < comm.tags.length - 1) {
+                if (n <= comm.tags.length - 1) {
                     content += comm.tags[n] + " | ";
                 } else {
                     content += comm.tags[n];
@@ -203,7 +203,7 @@ function RenderAllComment() {
 
         }
 
-        iGood.innerText = "好评(" + goodNum.toString() + ")";
+        iGood.innerText = "好评(" + goodNum.toString() + ") ";
         iBad.innerText = "差评(" + badNum.toString() + ")";
 
     }

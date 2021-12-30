@@ -91,7 +91,7 @@ function RenderAllComment() {
         oneFood.appendChild(foodAvatar);
         let iName = document.createElement("i");
         iName.className = "food-name";
-        iName.innerText = "菜名: " + food.foodName + "  ";
+        iName.innerText = food.foodName + "  ";
         foodAvatar.appendChild(iName);
         let iGood = document.createElement("i");
         iGood.className = "good-num";
@@ -111,7 +111,7 @@ function RenderAllComment() {
             commentGroup.appendChild(oneComm);
             let iDate = document.createElement("i");
             iDate.className = "data";
-            iDate.innerText = comm.yymmdd;
+            iDate.innerText = DateHelper_1.SplitDateToYYYYMMDD(comm.yymmdd);
             oneComm.appendChild(iDate);
             let iStarBD = document.createElement("i");
             iStarBD.className = "b";
@@ -135,7 +135,7 @@ function RenderAllComment() {
             let iComm = document.createElement("i");
             let content = comm.content ? comm.content + " | " : "";
             for (let n = 0; n < comm.tags.length; n += 1) {
-                if (n < comm.tags.length - 1) {
+                if (n <= comm.tags.length - 1) {
                     content += comm.tags[n] + " | ";
                 }
                 else {
@@ -145,7 +145,7 @@ function RenderAllComment() {
             iComm.innerText = content;
             oneComm.appendChild(iComm);
         }
-        iGood.innerText = "好评(" + goodNum.toString() + ")";
+        iGood.innerText = "好评(" + goodNum.toString() + ") ";
         iBad.innerText = "差评(" + badNum.toString() + ")";
     }
 }

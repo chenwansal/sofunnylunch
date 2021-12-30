@@ -82,6 +82,10 @@
     margin-top: 20px;
 }
 
+.statistics-body .one-food .good-num {
+    margin-left: 20px;
+}
+
 .statistics-body .food-name {
     font-size: 18px;
     font-weight: 900;
