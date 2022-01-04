@@ -13,6 +13,7 @@ import { HomeCommentService } from "./Service/Home/Service/HomeCommentService";
 import { CommentDao } from "./DB/Dao/Comment/CommentDao";
 import { HomeResetTodayMenuService } from "./Service/Home/Service/HomeResetTodayMenuService";
 import { AdminGetAllCommentService } from "./Service/Admin/AdminGetAllCommentService";
+import { Daos } from "./DB/Daos";
 
 const PORT = 9966;
 
@@ -68,12 +69,14 @@ class App {
         homeService.Inject(http);
         homeLoadMenuService.Inject(foodDao, menuDao, homeMenuCao, http);
         homeCommentService.Inject(http, commentDao);
-        homeResetTodayMenuService.Inject(menuDao);
+        homeResetTodayMenuService.Inject(menuDao, homeMenuCao);
 
         // INJECT ADMIN SERVICE
         adminService.Inject(http);
         adminAddMenuService.Inject(menuDao, foodDao, http);
         adminGetAllCommentService.Inject(http, foodDao, commentDao);
+
+        Daos.Inject(menuDao, foodDao, commentDao);
 
         // ==== INIT ====
         // INIT HTTP

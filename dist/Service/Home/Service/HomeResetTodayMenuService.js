@@ -14,8 +14,10 @@ class HomeResetTodayMenuService {
             if (this.lastDay != today) {
                 this.menuDao.ResetTodayMenu();
                 this.lastDay = today;
+                console.log("RESET");
             }
-        }, 1000 * 60);
+            console.log(this.lastDay, today);
+        }, 1000);
     }
 }
 exports.HomeResetTodayMenuService = HomeResetTodayMenuService;

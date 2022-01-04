@@ -5,6 +5,7 @@ const PathHelper_1 = require("../../../Util/PathHelper");
 const JsonVisitor_1 = require("../../JsonVisitor");
 const fs_1 = require("fs");
 const IdRecordDao_1 = require("../IdRecord/IdRecordDao");
+const DateHelper_1 = require("../../../Util/DateHelper");
 class CommentDao {
     constructor() { }
     Init() {
@@ -29,6 +30,11 @@ class CommentDao {
         }
         this.arr = this.LoadAllComment();
         return this.arr;
+    }
+    GetTodayComment() {
+        let all = this.GetAllComment();
+        let today = DateHelper_1.DateHelper.GetYYYYMMDD();
+        return all.filter(value => value.yymmdd == today);
     }
     HasCommented(ip, foodId, yymmdd) {
         let index = this.arr.findIndex(value => value.ip == ip && value.foodId == foodId && value.yymmdd == yymmdd);

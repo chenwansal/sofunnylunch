@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminGetAllCommentService = void 0;
+const GetCommentBo_1 = require("../../Bo/GetCommentBo");
 class AdminGetAllCommentService {
     constructor() { }
     Inject(http, foodDao, commentDao) {
@@ -10,36 +11,7 @@ class AdminGetAllCommentService {
     }
     Listening() {
         this.http.PostListen("/Admin/GetAllComment", (req, res) => {
-            // let isAdmin = RequestQueryHelper.IsAdministrator(req);
-            // if (!isAdmin) {
-            //     res.status(500).end();
-            //     return;
-            // }
-            let map = new Map();
-            let allComment = this.commentDao.GetAllComment();
-            for (let i = 0; i < allComment.length; i += 1) {
-                let com = allComment[i];
-                let one = map.get(com.foodId);
-                if (!one) {
-                    one = {
-                        foodId: com.foodId,
-                        foodName: this.foodDao.GetFood(com.foodId).name,
-                        commentArr: []
-                    };
-                    map.set(com.foodId, one);
-                }
-                let comment = {
-                    yymmdd: com.yymmdd,
-                    star: com.star,
-                    tags: com.tags,
-                    content: com.content
-                };
-                one.commentArr.push(comment);
-            }
-            let arr = [];
-            map.forEach(value => {
-                arr.push(value);
-            });
+            let arr = GetCommentBo_1.GetCommentBo.GetAllComment();
             res.json(arr);
             // console.log(arr);
         });

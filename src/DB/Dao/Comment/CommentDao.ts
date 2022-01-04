@@ -3,6 +3,7 @@ import { JsonVisitor } from "../../JsonVisitor";
 import { CommentTable } from "../../Table/CommentTable";
 import { readdirSync } from "fs";
 import { IdRecordDao } from "../IdRecord/IdRecordDao";
+import { DateHelper } from "../../../Util/DateHelper";
 
 
 export class CommentDao {
@@ -42,6 +43,12 @@ export class CommentDao {
 
         this.arr = this.LoadAllComment();
         return this.arr;
+    }
+
+    GetTodayComment(): CommentTable[] {
+        let all = this.GetAllComment();
+        let today = DateHelper.GetYYYYMMDD();
+        return all.filter(value => value.yymmdd == today);
     }
 
     HasCommented(ip:string, foodId: number, yymmdd: string): boolean {

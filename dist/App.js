@@ -15,6 +15,7 @@ const HomeCommentService_1 = require("./Service/Home/Service/HomeCommentService"
 const CommentDao_1 = require("./DB/Dao/Comment/CommentDao");
 const HomeResetTodayMenuService_1 = require("./Service/Home/Service/HomeResetTodayMenuService");
 const AdminGetAllCommentService_1 = require("./Service/Admin/AdminGetAllCommentService");
+const Daos_1 = require("./DB/Daos");
 const PORT = 9966;
 class App {
     static main() {
@@ -65,6 +66,7 @@ class App {
         adminService.Inject(http);
         adminAddMenuService.Inject(menuDao, foodDao, http);
         adminGetAllCommentService.Inject(http, foodDao, commentDao);
+        Daos_1.Daos.Inject(menuDao, foodDao, commentDao);
         // ==== INIT ====
         // INIT HTTP
         const viewPath = "/view/";
@@ -84,6 +86,10 @@ class App {
         adminGetAllCommentService.Listening();
         // ==== RUN ====
         http.Start();
+        setInterval(() => {
+            let date = new Date();
+            console.log(date.getDay());
+        }, 1000);
     }
 }
 App.main();

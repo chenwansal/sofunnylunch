@@ -45,7 +45,7 @@ export class HomeLoadMenuService {
 
         let dto: MenuDto = this.homeMenuCao.GetCachedMenuDto();
 
-        if (dto == null) {
+        if (!dto) {
 
             let menu: MenuTable = this.menuDao.GetTodayMenu();
             if (!menu) {
